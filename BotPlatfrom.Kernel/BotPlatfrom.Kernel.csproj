@@ -48,7 +48,6 @@
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\CommandCenter.cs" />
     <Compile Include="Init\IgnoreModuleAttribute.cs" />
-    <Compile Include="Init\Initializer.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\ICommandsModule.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
