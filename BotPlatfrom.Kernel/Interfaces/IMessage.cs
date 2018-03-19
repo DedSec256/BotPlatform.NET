@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BotPlatform.NET
+namespace BotPlatfrom.Kernel.Interfaces
 {
-    public class Class1
-    {
-    }
+	public interface IMessage
+	{
+		string Text { get; set; }
+	}
 }
