@@ -19,7 +19,7 @@ namespace BotPlatfrom.Kernel.IO
 		public static void Write(string text, MessageType type = MessageType.Default)
 		{
 			Writer?.Invoke(text, type);
-			LoggerInstance?.Log(LogLevel.Info, text);
+			LoggerInstance?.LogInfo(text);
 		}
 
 		public static void Write(Exception ex)

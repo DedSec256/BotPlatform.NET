@@ -12,20 +12,20 @@ namespace BotPlatfrom.Kernel.Command
 {
 	class CommandCenter
 	{
-		private static readonly Lazy<CommandCenter> instanceHolder =
+		protected static readonly Lazy<CommandCenter> instanceHolder =
 			new Lazy<CommandCenter>(() => new CommandCenter());
 		public static CommandCenter Instance
 		{
 			get { return instanceHolder.Value; }
 		}
 
-		private Dictionary<string, Command> Commands;
+		protected Dictionary<string, Command> Commands;
 		public CommandCenter()
 		{
 			Commands = new Dictionary<string, Command>();
 			ExecuteModules();
 		}
-		static void ExecuteModules()
+		protected virtual void ExecuteModules()
 		{
 			BotConsole.Write("[Подключение модулей...]", MessageType.System);
 
@@ -44,7 +44,7 @@ namespace BotPlatfrom.Kernel.Command
 			BotConsole.Write("Модули подключены.", MessageType.Info);
 		}
 
-		public bool TryAdd<T>(string commandName, Callback callback) where T : IBot
+		protected virtual bool TryAdd<T>(string commandName, Callback callback) where T : IBot
 		{
 			if (Commands.ContainsKey(commandName)) return false;
 
@@ -52,7 +52,7 @@ namespace BotPlatfrom.Kernel.Command
 			return true;
 		}
 
-		public async Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg)
+		public virtual async Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg)
 		{
 			/* Проверяет, есть ли команда в системе */
 			if (Commands.TryGetValue(message.Text, out Command command))
@@ -66,7 +66,7 @@ namespace BotPlatfrom.Kernel.Command
 			}					
 			else return false; /* true - если обработка успешна */
 		}
-		public bool Execute(IMessage message, IBot bot, object arg)
+		public virtual bool Execute(IMessage message, IBot bot, object arg)
 		{
 			/* Проверяет, есть ли команда в системе */
 			if (Commands.TryGetValue(message.Text, out Command command))
