@@ -47,6 +47,7 @@
     <Compile Include="Command\Attributes\DecorateAttribute.cs" />
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\CommandCenter.cs" />
+    <Compile Include="Implementations\Bot.cs" />
     <Compile Include="Init\IgnoreModuleAttribute.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\ICommandsModule.cs" />

@@ -28,7 +28,7 @@ namespace BotPlatfrom.Kernel.IO
 			                   ex.Message + "\nSTACK_TRACE: " + ex.StackTrace + "\n" +
 			                   "---------------------------";
 			Writer?.Invoke(exMessage, MessageType.Error);
-			LoggerInstance?.Log(LogLevel.Error, exMessage);
+			LoggerInstance?.LogError(exMessage);
 		}
 
 	}

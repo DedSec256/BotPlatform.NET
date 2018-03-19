@@ -8,9 +8,9 @@ namespace BotPlatfrom.Kernel.Interfaces
 {
 	public interface ILogger
 	{
-		void LogInfo<T>(T message);
-		void LogWarning<T>(T message);
-		void LogError<T>(T error);
+		void LogInfo(string message);
+		void LogWarning(string message);
+		void LogError(string error);
 		void LogError(Exception ex);
 	}
 }
