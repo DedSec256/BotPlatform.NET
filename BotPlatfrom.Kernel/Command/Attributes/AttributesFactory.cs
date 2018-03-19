@@ -14,15 +14,11 @@ namespace BotPlatfrom.Kernel.Command.Attributes
 		{
 			var decoratedCommand = new Command(signature, executorType);
 
-			var attributesList = signature.Method.CustomAttributes
-				.Where(a => typeof(DecorateAttribute).IsAssignableFrom(a.AttributeType));
-
+			var attributesList = signature.Method.GetCustomAttributes<DecorateAttribute>();
 			foreach (var attribute in attributesList)
 			{
-				var attributeInstance = Activator.CreateInstance(attribute.AttributeType) as DecorateAttribute;
-				decoratedCommand = attributeInstance.Decorate(decoratedCommand);
+				decoratedCommand = attribute.Decorate(decoratedCommand);
 			}
-
 			return decoratedCommand;
 		}
 	}

@@ -38,10 +38,24 @@ namespace BotPlatfrom.Kernel.Command
 				/* Проверяет, может ли бот данного типа выполнять эту команду */
 				if (command.BotType.IsInstanceOfType(bot))
 				{
-					return await command.Execute(message, bot, arg);
+					return await command.ExecuteAsync(message, bot, arg);
 				}
 				else return false;
 			}					
+			else return false; /* true - если обработка успешна */
+		}
+		public bool Execute(IMessage message, IBot bot, object arg)
+		{
+			/* Проверяет, есть ли команда в системе */
+			if (Commands.TryGetValue(message.Text, out Command command))
+			{
+				/* Проверяет, может ли бот данного типа выполнять эту команду */
+				if (command.BotType.IsInstanceOfType(bot))
+				{
+					return command.Execute(message, bot, arg);
+				}
+				else return false;
+			}
 			else return false; /* true - если обработка успешна */
 		}
 	}

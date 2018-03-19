@@ -20,7 +20,7 @@ namespace BotPlatfrom.Kernel.Command
 
 	    protected void BeforeExecute(IMessage message, IBot bot, object arg = null) { }
 
-	    public virtual Task<bool> Execute(IMessage message, IBot bot, object arg = null)
+	    public virtual Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg = null)
 	    {
 		    return Task.Run(() =>
 		    {
@@ -37,6 +37,21 @@ namespace BotPlatfrom.Kernel.Command
 				    return false;
 			    }
 		    });
+	    }
+	    public virtual bool Execute(IMessage message, IBot bot, object arg = null)
+	    {
+		    try
+		    {
+			    BeforeExecute(message, bot, arg);
+			    Execute(message, bot, arg);
+			    AfterExecute(message, bot, arg);
+
+			    return true;
+		    }
+		    catch (Exception ex)
+		    {
+			    return false;
+		    }
 	    }
 	    protected void AfterExecute(IMessage message, IBot bot, object arg = null) { }
 
