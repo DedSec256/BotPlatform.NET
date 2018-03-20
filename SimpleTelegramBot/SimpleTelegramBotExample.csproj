@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B183191D-ACB2-4116-892B-CEF3BF18B9CD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BotPlatfrom.Kernel</RootNamespace>
-    <AssemblyName>BotPlatfrom.Kernel</AssemblyName>
+    <ProjectGuid>{9576DAC7-788C-4335-8A22-BEE92618011E}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SimpleTelegramBotExample</RootNamespace>
+    <AssemblyName>SimpleTelegramBot</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,9 +34,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0-preview1-26216-02\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,22 +42,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Attributes\AttributesFactory.cs" />
-    <Compile Include="Command\Attributes\DecorateAttribute.cs" />
-    <Compile Include="Command\Command.cs" />
-    <Compile Include="Command\CommandCenter.cs" />
-    <Compile Include="Implementations\Bot.cs" />
-    <Compile Include="Init\IgnoreModuleAttribute.cs" />
-    <Compile Include="Interfaces\IBot.cs" />
-    <Compile Include="Interfaces\ICommandsModule.cs" />
-    <Compile Include="Tools\ILogger.cs" />
-    <Compile Include="Interfaces\IMessage.cs" />
-    <Compile Include="Interfaces\User.cs" />
-    <Compile Include="Tools\BotConsole.cs" />
+    <Compile Include="Modules\SimpleCommands.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleTelegramBot.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BotPlatfrom.Kernel\BotPlatfrom.Kernel.csproj">
+      <Project>{B183191D-ACB2-4116-892B-CEF3BF18B9CD}</Project>
+      <Name>BotPlatfrom.Kernel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

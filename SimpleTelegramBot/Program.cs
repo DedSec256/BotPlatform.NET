@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BotPlatfrom.Kernel.Interfaces
+namespace SimpleTelegramBotExample
 {
-	public interface IBot
+	class Program
 	{
-		void StartWork();
-		IMessage SendTextMessage();
+		static void Main(string[] args)
+		{
+		}
 	}
 }

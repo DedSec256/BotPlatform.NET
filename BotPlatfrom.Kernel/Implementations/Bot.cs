@@ -7,7 +7,7 @@ using BotPlatfrom.Kernel.Interfaces;
 
 namespace BotPlatfrom.Kernel.Implementations
 {
-	class Bot : IBot
+	abstract class Bot : IBot
 	{
 	}
 }

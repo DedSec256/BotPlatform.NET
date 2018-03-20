@@ -1,7 +1,7 @@
 ﻿using System;
 using BotPlatfrom.Kernel.Interfaces;
 
-namespace BotPlatfrom.Kernel.IO
+namespace BotPlatfrom.Kernel.Tools
 {
 	public enum MessageType
 	{

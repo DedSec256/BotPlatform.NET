@@ -6,26 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using BotPlatfrom.Kernel.Init;
 using BotPlatfrom.Kernel.Interfaces;
-using BotPlatfrom.Kernel.IO;
+using BotPlatfrom.Kernel.Tools;
 
 namespace BotPlatfrom.Kernel.Command
 {
-	class CommandCenter
+	public class CommandCenter
 	{
-		protected static readonly Lazy<CommandCenter> instanceHolder =
+		protected static Lazy<CommandCenter> InstanceHolder =
 			new Lazy<CommandCenter>(() => new CommandCenter());
-		public static CommandCenter Instance
-		{
-			get { return instanceHolder.Value; }
-		}
+		public static CommandCenter Instance => InstanceHolder.Value;
 
 		protected Dictionary<string, Command> Commands;
-		public CommandCenter()
+		protected CommandCenter()
 		{
 			Commands = new Dictionary<string, Command>();
 			ExecuteModules();
 		}
-		protected virtual void ExecuteModules()
+		private void ExecuteModules()
 		{
 			BotConsole.Write("[Подключение модулей...]", MessageType.System);
 
@@ -44,11 +41,18 @@ namespace BotPlatfrom.Kernel.Command
 			BotConsole.Write("Модули подключены.", MessageType.Info);
 		}
 
-		protected virtual bool TryAdd<T>(string commandName, Callback callback) where T : IBot
+		public virtual bool TryAdd<T>(string commandName, Callback callback) where T : IBot
 		{
 			if (Commands.ContainsKey(commandName)) return false;
 
 			Commands.Add(commandName, new Command(callback, typeof(T)));
+			return true;
+		}
+		public virtual bool TryAdd(string commandName, Callback callback) 
+		{
+			if (Commands.ContainsKey(commandName)) return false;
+
+			Commands.Add(commandName, new Command(callback, typeof(IBot)));
 			return true;
 		}
 
