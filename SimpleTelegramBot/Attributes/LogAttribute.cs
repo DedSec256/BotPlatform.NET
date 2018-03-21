@@ -29,7 +29,6 @@ namespace SimpleTelegramBotExample.Attributes
 		public override void BeforeExecute(MessageT message, BotT bot, object arg = null)
 		{
 			Console.WriteLine("Logging...");
-			BaseCommand.BeforeExecute(message, bot, arg);
 		}
 	}
 }

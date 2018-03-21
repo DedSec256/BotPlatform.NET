@@ -12,7 +12,6 @@ namespace BotPlatfrom.Kernel.Command
 		public abstract Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg = null);
 		public abstract bool Execute(IMessage message, IBot bot, object arg = null);
 		protected abstract void AfterExecute(IMessage message, IBot bot, object arg = null);
-
 		public bool CanBeExecutedBy(IBot bot, IMessage message = null)
 		{
 			if (message == null)
@@ -32,28 +31,28 @@ namespace BotPlatfrom.Kernel.Command
 			var messageT = message as MessageT;
 			if (bot is BotT botT && messageT != null) return ExecuteAsync(messageT, botT, arg);
 
-			throw new ArgumentException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
 		}
 		public sealed override bool Execute(IMessage message, IBot bot, object arg = null)
 		{
 			var messageT = message as MessageT;
 			if (bot is BotT botT && messageT != null) return Execute(messageT, botT, arg);
 
-			throw new ArgumentException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
 		}
 		protected sealed override void BeforeExecute(IMessage message, IBot bot, object arg = null)
 		{
 			var messageT = message as MessageT;
 			if (bot is BotT botT && messageT != null) BeforeExecute(messageT, botT, arg);
 
-			throw new ArgumentException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
 		}
 		protected sealed override void AfterExecute(IMessage message, IBot bot, object arg = null)
 		{
 			var messageT = message as MessageT;
 			if (bot is BotT botT && messageT != null) AfterExecute(messageT, botT, arg);
 
-			throw new ArgumentException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
 		}
 
 		public virtual void BeforeExecute(MessageT message, BotT bot, object arg = null)
@@ -64,7 +63,7 @@ namespace BotPlatfrom.Kernel.Command
 		{
 
 		}
-		public Task<bool> ExecuteAsync(MessageT message, BotT bot, object arg = null)
+		public virtual Task<bool> ExecuteAsync(MessageT message, BotT bot, object arg = null)
 		{
 			return Task.Run(() =>
 			{
@@ -82,7 +81,7 @@ namespace BotPlatfrom.Kernel.Command
 				}
 			});
 		}
-		public bool Execute(MessageT message, BotT bot, object arg = null)
+		public virtual bool Execute(MessageT message, BotT bot, object arg = null)
 		{
 			try
 			{
@@ -120,6 +119,51 @@ namespace BotPlatfrom.Kernel.Command
 		protected AttributedCommand(Command<BotT, MessageT> baseCommand) : base(baseCommand.Callback)
 		{
 			BaseCommand = baseCommand;
+		}
+
+		public sealed override bool Execute(MessageT message, BotT bot, object arg = null)
+		{
+			try
+			{
+				AttributedBeforeExecute(message, bot, arg);
+				Callback(message, bot, arg);
+				AttributedAfterExecute(message, bot, arg);
+
+				return true;
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+		public sealed override Task<bool> ExecuteAsync(MessageT message, BotT bot, object arg = null)
+		{
+			return Task.Run(() =>
+			{
+				try
+				{
+					AttributedBeforeExecute(message, bot, arg);
+					Callback(message, bot, arg);
+					AttributedAfterExecute(message, bot, arg);
+
+					return true;
+				}
+				catch (Exception ex)
+				{
+					return false;
+				}
+			});
+		}
+
+		protected void AttributedBeforeExecute(MessageT message, BotT bot, object arg = null)
+		{
+			BeforeExecute(message, bot, arg);
+			BaseCommand.BeforeExecute(message, bot, arg);
+		}
+		protected void AttributedAfterExecute(MessageT message, BotT bot, object arg = null)
+		{
+			AfterExecute(message, bot, arg);
+			BaseCommand.AfterExecute(message, bot, arg);
 		}
 	}
 	public abstract class AttributedCommand<BotT> : AttributedCommand<BotT, IMessage>
