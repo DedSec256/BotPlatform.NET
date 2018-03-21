@@ -11,9 +11,15 @@ using BotPlatfrom.Kernel.Tools;
 
 namespace BotPlatfrom.Kernel.Command
 {
+	/// <summary>
+	/// Менеджер команд
+	/// </summary>
 	public class CommandCenter
 	{
 		protected static CommandCenter InstanceHolder;
+		/// <summary>
+		/// Статический экземпляр менеджера команд
+		/// </summary>
 		public static CommandCenter Instance
 		{
 			get
@@ -57,12 +63,26 @@ namespace BotPlatfrom.Kernel.Command
 			}
 			BotConsole.Write("Модули подключены.\n", MessageType.Info);
 		}
-
+		/// <summary>
+		/// Добавление команды в систему
+		/// </summary>
+		/// <typeparam name="BotT">Тип бота, способного обрабатывать добавляемую команду</typeparam>
+		/// <param name="commandName">Имя команды</param>
+		/// <param name="callback">Обработчик команды</param>
+		/// <returns>true, если команда с таким же названием не была добавлена ранее</returns>
 		public virtual bool TryAdd<BotT>(string commandName, Callback<BotT, IMessage> callback)
 			where BotT: class, IBot
 		{
 			return TryAdd<BotT, IMessage>(commandName, callback);
 		}
+		/// <summary>
+		/// Добавление команды в систему
+		/// </summary>
+		/// <typeparam name="BotT">Тип бота, способного обрабатывать добавляемую команду</typeparam>
+		/// <typeparam name="MessageT">Тип сообщения, способный обрабатываться ботом типа BotT</typeparam>
+		/// <param name="commandName">Имя команды</param>
+		/// <param name="callback">Обработчик команды</param>
+		/// <returns>true, если команда с таким же названием не была добавлена ранее</returns>
 		public virtual bool TryAdd<BotT, MessageT>(string commandName, Callback<BotT, MessageT> callback)
 			where BotT : class, IBot
 			where MessageT: class, IMessage
@@ -73,7 +93,13 @@ namespace BotPlatfrom.Kernel.Command
 			Commands.Add(commandName, decoratedCommand);
 			return true;
 		}
-
+		/// <summary>
+		/// Асинхронный запуск обработки команды
+		/// </summary>
+		/// <param name="message">сообщени от пользователя</param>
+		/// <param name="bot">бот, способный обработать команду</param>
+		/// <param name="arg">аргументы команды (полученные от бота или из сообщения)</param>
+		/// <returns>true, если команда завершилась без необрабатываемых ошибок</returns>
 		public virtual async Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg)
 		{
 			/* Проверяет, есть ли команда в системе */
@@ -88,6 +114,13 @@ namespace BotPlatfrom.Kernel.Command
 			}					
 			else return false; /* true - если обработка успешна */
 		}
+		/// <summary>
+		/// Запуск обработки команды
+		/// </summary>
+		/// <param name="message">сообщени от пользователя</param>
+		/// <param name="bot">бот, способный обработать команду</param>
+		/// <param name="arg">аргументы команды (полученные от бота или из сообщения)</param>
+		/// <returns>true, если команда завершилась без необрабатываемых ошибок</returns>
 		public virtual bool Execute(IMessage message, IBot bot, object arg = null)
 		{
 			/* Проверяет, есть ли команда в системе */
