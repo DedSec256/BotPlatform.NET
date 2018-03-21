@@ -11,9 +11,11 @@ namespace BotPlatfrom.Kernel.Command.Attributes
 	public static class AttributesFactory
 	{
 
-		public static Command<BotT> GetCommand<BotT>(this Callback<BotT> signature) where BotT: class, ISingleBot
+		public static Command<BotT, MessageT> GetCommand<BotT, MessageT>(this Callback<BotT, MessageT> signature) 
+			where BotT: class, IBot
+			where MessageT: class, IMessage
 		{
-			var decoratedCommand = new Command<BotT>(signature);
+			var decoratedCommand = new Command<BotT, MessageT>(signature);
 
 			var attributesList = signature.Method.GetCustomAttributes<DecorateAttribute>();
 			foreach (var attribute in attributesList)

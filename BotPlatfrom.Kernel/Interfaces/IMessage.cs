@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace BotPlatfrom.Kernel.Interfaces
 {
-	public class Message
+	public interface IMessage
 	{
-		public string Text { get; set; }
-		public string Caption { get; set; }
-		public DateTime Date { get; set; }
-		public long MessageId { get; set; }
-		public long UserId { get; set; }
+		string Text { get; set; }
+		long UserId { get; set; }
+	}
+
+	public interface IUniversalMessage : IMessage
+	{
+		string Caption { get; set; }
+		DateTime Date { get; set; }
+		long MessageId { get; set; }
 		/* ... */
 	}
 }

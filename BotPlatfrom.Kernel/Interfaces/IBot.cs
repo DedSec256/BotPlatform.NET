@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace BotPlatfrom.Kernel.Interfaces
 {
-	public interface ISingleBot
+	public interface IBot
 	{
 		bool Autorize();
 		void StartWork();
 	}
-	public interface IUniversalSingleBot : ISingleBot
+	public interface IUniversalBot : IBot
 	{
-		Message SendTextMessage(string userId, string text);
-		Message SendTextMessage(long userId, string text);
+		IMessage SendTextMessage(string userId, string text);
+		IMessage SendTextMessage(long userId, string text);
 		/* ... */
 	}
 }

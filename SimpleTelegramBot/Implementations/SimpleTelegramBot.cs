@@ -6,7 +6,7 @@ using Telegram.Bot.Args;
 
 namespace SimpleTelegramBotExample.Implementations
 {
-	class SimpleTelegramBot: ISingleBot
+	class SimpleTelegramBot: IBot
 	{
 		public TelegramBotClient Instanse;
 		private bool _autorized = false;
@@ -47,7 +47,7 @@ namespace SimpleTelegramBotExample.Implementations
 				var message = update.Message;
 				if (message == null) return;
 
-				CommandCenter.Instance.Execute(message.FromTelegramMessage(), this);
+				CommandCenter.Instance.Execute(new TMessage(message), this);
 
 			}
 			catch (Exception ex) { }

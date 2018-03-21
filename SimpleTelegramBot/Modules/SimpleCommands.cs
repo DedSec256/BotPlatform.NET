@@ -15,11 +15,18 @@ namespace SimpleTelegramBotExample.Modules
 		public SimpleCommands() { }
 		public void Initialize()
 		{
-			CommandCenter.Instance.TryAdd<SimpleTelegramBot>("help", HelpCallback);
+			CommandCenter.Instance.TryAdd<SimpleTelegramBot>("/help", HelpCallback);
+			CommandCenter.Instance.TryAdd<SimpleTelegramBot, TMessage>("/start", StartCallback);
 		}
 
 		[Log]
-		private void HelpCallback(Message message, SimpleTelegramBot bot, object obj = null)
+		private void StartCallback(TMessage message, SimpleTelegramBot bot, object o)
+		{
+			bot.Instanse.SendTextMessageAsync(message.UserId, message.Instance.Caption);
+		}
+
+		[Log]
+		private void HelpCallback(IMessage message, SimpleTelegramBot bot, object obj = null)
 		{
 			bot.Instanse.SendTextMessageAsync(message.UserId, $"Здравствуйте, user{message.UserId}: ...");
 		}

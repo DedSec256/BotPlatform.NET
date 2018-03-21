@@ -7,18 +7,27 @@ using BotPlatfrom.Kernel.Interfaces;
 
 namespace SimpleTelegramBotExample.Implementations
 {
-	public static class MessageExtension
+	public class TMessage : IMessage
 	{
-		public static Message FromTelegramMessage(this Telegram.Bot.Types.Message message)
+		public readonly Telegram.Bot.Types.Message Instance;
+
+		public TMessage(Telegram.Bot.Types.Message m)
 		{
-			return new Message()
-			{
-				Caption = message.Caption,
-				Date = message.Date,
-				MessageId = message.MessageId,
-				Text = message.Text,
-				UserId = message.From.Id
-			};
+			Instance = m;
+		}
+
+		public string Text
+		{
+			get { return Instance.Text; }
+
+			set { }
+		}
+
+		public long UserId
+		{
+			get { return Instance.From.Id; }
+
+			set { }
 		}
 	}
 }
