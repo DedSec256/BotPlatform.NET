@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BotPlatfrom.Kernel.Init
 {
-	class IgnoreModuleAttribute : Attribute
+	public class IgnoreModuleAttribute : Attribute
 	{
-
 	}
 }

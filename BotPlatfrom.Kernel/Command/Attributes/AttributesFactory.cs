@@ -4,15 +4,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using BotPlatfrom.Kernel.Interfaces;
 
 namespace BotPlatfrom.Kernel.Command.Attributes
 {
 	public static class AttributesFactory
 	{
 
-		public static Command GetCallback(this Callback signature, Type executorType)
+		public static Command<BotT> GetCommand<BotT>(this Callback<BotT> signature) where BotT: class, ISingleBot
 		{
-			var decoratedCommand = new Command(signature, executorType);
+			var decoratedCommand = new Command<BotT>(signature);
 
 			var attributesList = signature.Method.GetCustomAttributes<DecorateAttribute>();
 			foreach (var attribute in attributesList)

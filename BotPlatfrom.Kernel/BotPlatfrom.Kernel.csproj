@@ -45,14 +45,14 @@
   <ItemGroup>
     <Compile Include="Command\Attributes\AttributesFactory.cs" />
     <Compile Include="Command\Attributes\DecorateAttribute.cs" />
+    <Compile Include="Command\Callback.cs" />
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\CommandCenter.cs" />
-    <Compile Include="Implementations\Bot.cs" />
     <Compile Include="Init\IgnoreModuleAttribute.cs" />
-    <Compile Include="Interfaces\IBot.cs" />
+    <Compile Include="Interfaces\ISingleBot.cs" />
     <Compile Include="Interfaces\ICommandsModule.cs" />
-    <Compile Include="Tools\ILogger.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
+    <Compile Include="Tools\ILogger.cs" />
     <Compile Include="Interfaces\User.cs" />
     <Compile Include="Tools\BotConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

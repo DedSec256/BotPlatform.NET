@@ -28,16 +28,16 @@ namespace BotPlatfrom.Kernel.Interfaces
 			Context = (contextPredicate: regex, Done: done, Failed: failed);
 		}
 		/* Бот при получении нового сообщения от пользователя передаёт его сюда */
-		public void ExecuteCurrentContext(IMessage message, IBot bot, object arg)
+		public void ExecuteCurrentContext(IMessage message, ISingleBot singleBot, object arg)
 		{
 			/* Проверка, соответствует ли сообщение контексту */
 			if (Context.contextPredicate.Match(message.Text).Value == message.Text)
 			{
-				Context.Done(message, bot, arg);
+				Context.Done(message, singleBot, arg);
 			}
 			else
 			{
-				Context.Failed(message, bot, arg);
+				Context.Failed(message, singleBot, arg);
 			}
 		}
 	}

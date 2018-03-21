@@ -9,5 +9,6 @@ namespace BotPlatfrom.Kernel.Interfaces
 	public interface IMessage
 	{
 		string Text { get; set; }
+		/* ... */
 	}
 }
