@@ -14,7 +14,6 @@ namespace BotPlatfrom.Kernel.Command
 	public class CommandCenter
 	{
 		protected static CommandCenter InstanceHolder;
-
 		public static CommandCenter Instance
 		{
 			get
@@ -36,7 +35,6 @@ namespace BotPlatfrom.Kernel.Command
 		private void ExecuteModules()
 		{
 			BotConsole.Write("[Подключение модулей...]\n", MessageType.System);
-
 			/* Подключаем модули, создавая обьекты их классов */
 			var typelist =
 				Assembly.GetEntryAssembly().GetTypes()
@@ -61,13 +59,9 @@ namespace BotPlatfrom.Kernel.Command
 		}
 
 		public virtual bool TryAdd<BotT>(string commandName, Callback<BotT, IMessage> callback)
-			where BotT: class, IBot 
+			where BotT: class, IBot
 		{
-			if (Commands.ContainsKey(commandName)) return false;
-
-			var decoratedCommand = callback.GetCommand();
-			Commands.Add(commandName, decoratedCommand);
-			return true;
+			return TryAdd<BotT, IMessage>(commandName, callback);
 		}
 		public virtual bool TryAdd<BotT, MessageT>(string commandName, Callback<BotT, MessageT> callback)
 			where BotT : class, IBot
