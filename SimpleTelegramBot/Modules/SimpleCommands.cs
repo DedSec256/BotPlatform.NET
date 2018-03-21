@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BotPlatfrom.Kernel.Command;
 using SimpleTelegramBotExample.Attributes;
+using SimpleTelegramBotExample.Implementations;
 
 namespace SimpleTelegramBotExample.Modules
 {
@@ -18,9 +19,9 @@ namespace SimpleTelegramBotExample.Modules
 		}
 
 		[Log]
-		private void HelpCallback(IMessage message, SimpleTelegramBot bot, object obj = null)
+		private void HelpCallback(Message message, SimpleTelegramBot bot, object obj = null)
 		{
-			Console.WriteLine("help: ...");
+			bot.Instanse.SendTextMessageAsync(message.UserId, $"Здравствуйте, user{message.UserId}: ...");
 		}
 	}
 }

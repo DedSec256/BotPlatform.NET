@@ -23,7 +23,7 @@ namespace SimpleTelegramBotExample.Attributes
 		{
 		}
 
-		public override void AfterExecute(IMessage message, BotT bot, object arg = null)
+		public override void AfterExecute(Message message, BotT bot, object arg = null)
 		{
 			Console.WriteLine("Logging...");
 			BaseCommand.AfterExecute(message, bot, arg);

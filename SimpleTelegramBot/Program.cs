@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BotPlatfrom.Kernel.Command;
 using BotPlatfrom.Kernel.Tools;
+using SimpleTelegramBotExample.Implementations;
 
 namespace SimpleTelegramBotExample
 {

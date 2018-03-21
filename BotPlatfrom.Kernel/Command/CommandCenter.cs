@@ -13,15 +13,25 @@ namespace BotPlatfrom.Kernel.Command
 {
 	public class CommandCenter
 	{
-		protected static Lazy<CommandCenter> InstanceHolder =
-			new Lazy<CommandCenter>(() => new CommandCenter());
-		public static CommandCenter Instance => InstanceHolder.Value;
+		protected static CommandCenter InstanceHolder;
+
+		public static CommandCenter Instance
+		{
+			get
+			{
+				if (InstanceHolder == null)
+				{
+					InstanceHolder = new CommandCenter();
+					InstanceHolder.ExecuteModules();
+				}
+				return InstanceHolder;
+			}
+		}
 
 		protected Dictionary<string, Command> Commands;
 		protected CommandCenter()
 		{
 			Commands = new Dictionary<string, Command>();
-			ExecuteModules();
 		}
 		private void ExecuteModules()
 		{
@@ -38,7 +48,8 @@ namespace BotPlatfrom.Kernel.Command
 				BotConsole.Write($"Подключение {type.FullName}...");
 				try
 				{
-					Activator.CreateInstance(type);
+					var module = Activator.CreateInstance(type) as ICommandsModule;
+					module.Initialize();
 					BotConsole.Write($"Подключено.\n");
 				}
 				catch
@@ -59,7 +70,7 @@ namespace BotPlatfrom.Kernel.Command
 			return true;
 		}
 
-		public virtual async Task<bool> ExecuteAsync(IMessage message, ISingleBot singleBot, object arg)
+		public virtual async Task<bool> ExecuteAsync(Message message, ISingleBot singleBot, object arg)
 		{
 			/* Проверяет, есть ли команда в системе */
 			if (Commands.TryGetValue(message.Text, out Command command))
@@ -73,7 +84,7 @@ namespace BotPlatfrom.Kernel.Command
 			}					
 			else return false; /* true - если обработка успешна */
 		}
-		public virtual bool Execute(IMessage message, ISingleBot singleBot, object arg)
+		public virtual bool Execute(Message message, ISingleBot singleBot, object arg = null)
 		{
 			/* Проверяет, есть ли команда в системе */
 			if (Commands.TryGetValue(message.Text, out Command command))

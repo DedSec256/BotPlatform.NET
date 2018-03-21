@@ -13,8 +13,8 @@ namespace BotPlatfrom.Kernel.Interfaces
 	}
 	public interface IUniversalSingleBot : ISingleBot
 	{
-		IMessage SendTextMessage(string userId, string text);
-		IMessage SendTextMessage(long userId, string text);
+		Message SendTextMessage(string userId, string text);
+		Message SendTextMessage(long userId, string text);
 		/* ... */
 	}
 }
