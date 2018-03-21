@@ -86,7 +86,7 @@ namespace BotPlatfrom.Kernel.Command
 			if (Commands.TryGetValue(message.Text, out Command command))
 			{
 				/* Проверяет, может ли бот данного типа выполнять эту команду */
-				if (command.BotType.IsInstanceOfType(bot) && command.MessageType.IsInstanceOfType(message))
+				if (command.CanBeExecutedBy(bot, message))
 				{
 					return await command.ExecuteAsync(message, bot, arg);
 				}
@@ -100,7 +100,7 @@ namespace BotPlatfrom.Kernel.Command
 			if (Commands.TryGetValue(message.Text, out Command command))
 			{
 				/* Проверяет, может ли бот данного типа выполнять эту команду */
-				if (command.BotType.IsInstanceOfType(bot) && command.MessageType.IsInstanceOfType(message))
+				if (command.CanBeExecutedBy(bot, message))
 				{
 					return command.Execute(message, bot, arg);
 				}

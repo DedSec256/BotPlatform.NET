@@ -13,6 +13,13 @@ namespace BotPlatfrom.Kernel.Command
 		public abstract bool Execute(IMessage message, IBot bot, object arg = null);
 		protected abstract void AfterExecute(IMessage message, IBot bot, object arg = null);
 
+		public bool CanBeExecutedBy(IBot bot, IMessage message = null)
+		{
+			if (message == null)
+				return BotType.IsInstanceOfType(bot);
+			return BotType.IsInstanceOfType(bot) && MessageType.IsInstanceOfType(message);
+		}
+
 	}
 
 	public class Command<BotT, MessageT> : Command

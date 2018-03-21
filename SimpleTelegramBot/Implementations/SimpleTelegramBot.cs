@@ -48,7 +48,6 @@ namespace SimpleTelegramBotExample.Implementations
 				if (message == null) return;
 
 				CommandCenter.Instance.Execute(new TMessage(message), this);
-
 			}
 			catch (Exception ex) { }
 		}

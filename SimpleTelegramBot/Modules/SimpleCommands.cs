@@ -16,13 +16,14 @@ namespace SimpleTelegramBotExample.Modules
 		public void Initialize()
 		{
 			CommandCenter.Instance.TryAdd<SimpleTelegramBot>("/help", HelpCallback);
-			CommandCenter.Instance.TryAdd<SimpleTelegramBot, TMessage>("/start", StartCallback);
+			CommandCenter.Instance.TryAdd<SimpleTelegramBot, TMessage>("размер", CheckCallback);
 		}
 
 		[Log]
-		private void StartCallback(TMessage message, SimpleTelegramBot bot, object o)
+		private void CheckCallback(TMessage message, SimpleTelegramBot bot, object o)
 		{
-			bot.Instanse.SendTextMessageAsync(message.UserId, message.Instance.Caption);
+			if(message.Instance.Photo == null)
+				bot.Instanse.SendTextMessageAsync(message.UserId, "Нет ни одного прикреплённого фото :C");
 		}
 
 		[Log]
