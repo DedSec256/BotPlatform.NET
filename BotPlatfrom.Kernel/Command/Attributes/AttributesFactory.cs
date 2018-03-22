@@ -15,8 +15,8 @@ namespace BotPlatfrom.Kernel.Command.Attributes
 			where MessageT: class, IMessage
 		{
 			var decoratedCommand = new Command<BotT, MessageT>(signature);
-
 			var attributesList = signature.Method.GetCustomAttributes<DecorateAttribute>();
+
 			foreach (var attribute in attributesList)
 			{
 				decoratedCommand = attribute.Decorate(decoratedCommand);

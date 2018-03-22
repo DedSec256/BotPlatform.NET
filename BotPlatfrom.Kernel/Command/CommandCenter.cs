@@ -132,7 +132,7 @@ namespace BotPlatfrom.Kernel.Command
 				}
 				else return false;
 			}
-			else return false; /* true - если обработка успешна */
+			else return false; /* true - если команда завершилась без необрабатываемых ошибок */
 		}
 	}
 }

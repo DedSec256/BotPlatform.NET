@@ -15,38 +15,27 @@ namespace SimpleTelegramBotExample.Implementations
 		{
 			try
 			{
-				Instanse = new TelegramBotClient("398931706:AAEUZBNEWcpEUK-qUbzB8gXBaNxYXvfQATk");
+				Instanse = new TelegramBotClient("AuthToken");
 				Instanse.SetWebhookAsync("");
 				return true;
 			}
-			catch
-			{
-				return false;
-			}
+			catch { return false; }
 		}
-
 		protected override void StartBotWork()
 		{
 			Instanse.OnUpdate += Bot_OnUpdate;
 			Instanse.StartReceiving();
 		}
-
 		private void Bot_OnUpdate(object sender, UpdateEventArgs e)
 		{
 			try
 			{
-				if (e.Update.CallbackQuery != null || e.Update.InlineQuery != null)
-					return;
 				var update = e.Update;
 				var message = update.Message;
-				if (message == null) return;
 
 				CommandCenter.Instance.Execute(new TMessage(message), this);
 			}
-			catch (Exception ex)
-			{
-				BotConsole.Write(ex);
-			}
+			catch (Exception ex) { BotConsole.Write(ex); }
 		}
 	}
 }

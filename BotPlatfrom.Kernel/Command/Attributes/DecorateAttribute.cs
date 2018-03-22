@@ -10,6 +10,7 @@ namespace BotPlatfrom.Kernel.Command.Attributes
 	/// <summary>
 	/// Атрибут, позволяющий оборачивать функцию-обработчик команды
 	/// </summary>
+	[AttributeUsage(AttributeTargets.Method)]
 	public abstract class DecorateAttribute : Attribute
 	{
 		/// <summary>

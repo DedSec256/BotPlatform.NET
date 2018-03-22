@@ -23,9 +23,7 @@ namespace SimpleTelegramBotExample.Attributes
 		where MessageT: class, IMessage
 	{
 		public LogAttributedCommand(Command<BotT, MessageT> baseCommand) : base(baseCommand)
-		{
-		}
-
+		{ }
 		public override void BeforeExecute(MessageT message, BotT bot, object arg = null)
 		{
 			Console.WriteLine("Logging...");

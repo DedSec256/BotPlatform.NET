@@ -18,7 +18,6 @@ namespace BotPlatfrom.Kernel.Command
 				return BotType.IsInstanceOfType(bot);
 			return BotType.IsInstanceOfType(bot) && MessageType.IsInstanceOfType(message);
 		}
-
 	}
 
 	public class Command<BotT, MessageT> : Command
@@ -105,6 +104,7 @@ namespace BotPlatfrom.Kernel.Command
 		{
 			Callback = callback;
 			BotType = typeof(BotT);
+			MessageType = typeof(MessageT);
 		}
 	}
 
