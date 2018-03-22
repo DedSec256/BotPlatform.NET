@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BotPlatfrom.Kernel.Command.Attributes;
-using BotPlatfrom.Kernel.Init;
 using BotPlatfrom.Kernel.Interfaces;
 using BotPlatfrom.Kernel.Tools;
 

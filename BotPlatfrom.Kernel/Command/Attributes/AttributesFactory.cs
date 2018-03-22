@@ -10,7 +10,6 @@ namespace BotPlatfrom.Kernel.Command.Attributes
 {
 	public static class AttributesFactory
 	{
-
 		public static Command<BotT, MessageT> GetCommand<BotT, MessageT>(this Callback<BotT, MessageT> signature) 
 			where BotT: class, IBot
 			where MessageT: class, IMessage

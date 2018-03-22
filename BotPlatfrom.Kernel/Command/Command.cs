@@ -75,7 +75,9 @@ namespace BotPlatfrom.Kernel.Command
 
 					return true;
 				}
+#pragma warning disable CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 				catch (Exception ex)
+#pragma warning restore CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 				{
 					return false;
 				}
@@ -91,7 +93,9 @@ namespace BotPlatfrom.Kernel.Command
 
 				return true;
 			}
+#pragma warning disable CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 			catch (Exception ex)
+#pragma warning restore CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 			{
 				return false;
 			}
@@ -131,7 +135,9 @@ namespace BotPlatfrom.Kernel.Command
 
 				return true;
 			}
+#pragma warning disable CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 			catch (Exception ex)
+#pragma warning restore CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 			{
 				return false;
 			}
@@ -148,7 +154,9 @@ namespace BotPlatfrom.Kernel.Command
 
 					return true;
 				}
+#pragma warning disable CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 				catch (Exception ex)
+#pragma warning restore CS0168 // Переменная "ex" объявлена, но ни разу не использована.
 				{
 					return false;
 				}

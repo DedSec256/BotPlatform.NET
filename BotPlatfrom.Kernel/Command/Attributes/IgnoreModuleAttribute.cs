@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BotPlatfrom.Kernel.Init
+namespace BotPlatfrom.Kernel.Command.Attributes
 {
 	/// <summary>
 	/// Атрибут, помечающий модули команд, которые не должны добавляться в систему

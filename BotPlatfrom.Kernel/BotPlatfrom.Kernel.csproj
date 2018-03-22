@@ -48,7 +48,8 @@
     <Compile Include="Command\Callback.cs" />
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\CommandCenter.cs" />
-    <Compile Include="Init\IgnoreModuleAttribute.cs" />
+    <Compile Include="Command\Attributes\IgnoreModuleAttribute.cs" />
+    <Compile Include="Implementations\Bot.cs" />
     <Compile Include="Interfaces\IBot.cs" />
     <Compile Include="Interfaces\ICommandsModule.cs" />
     <Compile Include="Interfaces\IMessage.cs" />

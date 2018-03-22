@@ -1,20 +1,17 @@
 ﻿using System;
 using BotPlatfrom.Kernel.Command;
+using BotPlatfrom.Kernel.Implementations;
 using BotPlatfrom.Kernel.Interfaces;
+using BotPlatfrom.Kernel.Tools;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
 namespace SimpleTelegramBotExample.Implementations
 {
-	class SimpleTelegramBot: IBot
+	class SimpleTelegramBot: Bot
 	{
 		public TelegramBotClient Instanse;
-		private bool _autorized = false;
-		public SimpleTelegramBot()
-		{
-			_autorized = Autorize();
-		}
-		public bool Autorize()
+		public override bool Autorize()
 		{
 			try
 			{
@@ -28,13 +25,10 @@ namespace SimpleTelegramBotExample.Implementations
 			}
 		}
 
-		public void StartWork()
+		protected override void StartBotWork()
 		{
-			if (_autorized)
-			{
-				Instanse.OnUpdate += Bot_OnUpdate;
-				Instanse.StartReceiving();
-			}
+			Instanse.OnUpdate += Bot_OnUpdate;
+			Instanse.StartReceiving();
 		}
 
 		private void Bot_OnUpdate(object sender, UpdateEventArgs e)
@@ -49,7 +43,10 @@ namespace SimpleTelegramBotExample.Implementations
 
 				CommandCenter.Instance.Execute(new TMessage(message), this);
 			}
-			catch (Exception ex) { }
+			catch (Exception ex)
+			{
+				BotConsole.Write(ex);
+			}
 		}
 	}
 }
