@@ -8,7 +8,7 @@ namespace BotPlatfrom.Kernel.Interfaces
 {
 	public interface IBot
 	{
-		bool Autorize();
+		bool Authorize();
 		void StartWork();
 	}
 	public interface IUniversalBot : IBot

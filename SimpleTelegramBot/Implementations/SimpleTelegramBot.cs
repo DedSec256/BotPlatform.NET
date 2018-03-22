@@ -11,7 +11,7 @@ namespace SimpleTelegramBotExample.Implementations
 	class SimpleTelegramBot: Bot
 	{
 		public TelegramBotClient Instanse;
-		public override bool Autorize()
+		public override bool Authorize()
 		{
 			try
 			{

@@ -9,12 +9,12 @@ namespace BotPlatfrom.Kernel.Implementations
 {
 	public abstract class Bot : IBot
 	{
-		protected bool IsAutorized = false;
-		public abstract bool Autorize();
+		protected bool IsAuthorized = false;
+		public abstract bool Authorize();
 
 		public void StartWork()
 		{
-			if(!IsAutorized && !Autorize())
+			if(!IsAuthorized && !Authorize())
 				throw new InvalidOperationException("Не удалось авторизовать бота");
 			StartBotWork();	
 		}
