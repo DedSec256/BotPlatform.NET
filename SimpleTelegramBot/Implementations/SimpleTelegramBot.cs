@@ -5,6 +5,7 @@ using BotPlatfrom.Kernel.Interfaces;
 using BotPlatfrom.Kernel.Tools;
 using Telegram.Bot;
 using Telegram.Bot.Args;
+using Telegram.Bot.Types;
 
 namespace SimpleTelegramBotExample.Implementations
 {
@@ -33,7 +34,7 @@ namespace SimpleTelegramBotExample.Implementations
 				var update = e.Update;
 				var message = update.Message;
 
-				CommandCenter.Instance.Execute(new TMessage(message), this);
+				CommandCenter.Instance.Execute<TelegramBotClient, Message>(Instanse, message, m => m.Text);
 			}
 			catch (Exception ex) { BotConsole.Write(ex); }
 		}

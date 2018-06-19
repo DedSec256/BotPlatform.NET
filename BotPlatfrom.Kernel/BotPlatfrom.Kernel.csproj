@@ -49,10 +49,9 @@
     <Compile Include="Command\Command.cs" />
     <Compile Include="Command\CommandCenter.cs" />
     <Compile Include="Command\Attributes\IgnoreModuleAttribute.cs" />
+    <Compile Include="Command\CommandCenterPoint.cs" />
     <Compile Include="Implementations\Bot.cs" />
-    <Compile Include="Interfaces\IBot.cs" />
-    <Compile Include="Interfaces\ICommandsModule.cs" />
-    <Compile Include="Interfaces\IMessage.cs" />
+    <Compile Include="Command\CommandsModule.cs" />
     <Compile Include="Tools\ILogger.cs" />
     <Compile Include="Interfaces\User.cs" />
     <Compile Include="Tools\BotConsole.cs" />

@@ -10,13 +10,13 @@ namespace SimpleTelegramBotExample.Modules
 {
 	/* Не добавляем модуль в сборку команд */
 	[IgnoreModule]
-	class IgnoredCommands : ICommandsModule
+	class IgnoredCommands : CommandsModule<object, object>
 	{
 		public IgnoredCommands()
 		{
 			
 		}
-		public void Initialize()
+		public override void Initialize()
 		{
 			/* Этот метод не вызовется */
 		}

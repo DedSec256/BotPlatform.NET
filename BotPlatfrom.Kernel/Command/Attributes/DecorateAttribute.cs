@@ -17,12 +17,10 @@ namespace BotPlatfrom.Kernel.Command.Attributes
 		/// Возвращает обёрнутую команду
 		/// в теле вызывает: return new MyAttributedCommand(command);
 		/// </summary>
-		/// <typeparam name="BotT">Тип бота, способного обрабатывать добавляемую команду</typeparam>
-		/// <typeparam name="MessageT">Тип сообщения, способный обрабатываться ботом типа BotT</typeparam>
+		/// <typeparam name="TBot">Тип бота, способного обрабатывать добавляемую команду</typeparam>
+		/// <typeparam name="TMessage">Тип сообщения, способный обрабатываться ботом типа BotT</typeparam>
 		/// <param name="command">Возвращает обёрнутую команду типа (BotT, MessageT)</param>
 		/// <returns></returns>
-		public abstract AttributedCommand<BotT, MessageT> Decorate<BotT, MessageT>(Command<BotT, MessageT> command)
-			where BotT : class, IBot
-			where MessageT : class, IMessage;
+		public abstract AttributedCommand<TBot, TMessage> Decorate<TBot, TMessage>(Command<TBot, TMessage> command);
 	}
 }

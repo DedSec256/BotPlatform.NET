@@ -23,11 +23,10 @@ namespace BotPlatfrom.Kernel.Command
 		{
 			get
 			{
-				if (InstanceHolder == null)
-				{
-					InstanceHolder = new CommandCenter();
-					InstanceHolder.ExecuteModules();
-				}
+				if (InstanceHolder != null) return InstanceHolder;
+
+				InstanceHolder = new CommandCenter();
+				InstanceHolder.ExecuteModules();
 				return InstanceHolder;
 			}
 		}
@@ -37,21 +36,21 @@ namespace BotPlatfrom.Kernel.Command
 		{
 			Commands = new Dictionary<string, Command>();
 		}
-		private void ExecuteModules()
+		protected void ExecuteModules()
 		{
 			BotConsole.Write("[Подключение модулей...]\n", MessageType.System);
 			/* Подключаем модули, создавая обьекты их классов */
 			var typelist =
 				Assembly.GetEntryAssembly().GetTypes()
-					.Where(t => typeof(ICommandsModule).IsAssignableFrom(t)  
-					   && !t.GetCustomAttributes<IgnoreModuleAttribute>().Any())
+					.Where(t => typeof(CommandsModule<,>).IsAssignableFrom(t) &&
+							    !t.GetCustomAttributes<IgnoreModuleAttribute>().Any())
 					.OrderBy(t => t.FullName).ToArray();
 			foreach (var type in typelist)
 			{
 				BotConsole.Write($"Подключение {type.FullName}...");
 				try
 				{
-					var module = Activator.CreateInstance(type) as ICommandsModule;
+					dynamic module = Activator.CreateInstance(type);
 					module.Initialize();
 					BotConsole.Write($"Подключено.\n");
 				}
@@ -62,29 +61,16 @@ namespace BotPlatfrom.Kernel.Command
 			}
 			BotConsole.Write("Модули подключены.\n", MessageType.Info);
 		}
+
 		/// <summary>
 		/// Добавление команды в систему
 		/// </summary>
-		/// <typeparam name="BotT">Тип бота, способного обрабатывать добавляемую команду</typeparam>
+		/// <typeparam name="TBot">Тип бота, способного обрабатывать добавляемую команду</typeparam>
+		/// <typeparam name="TMessage">Тип сообщения, способный обрабатываться ботом типа BotT</typeparam>
 		/// <param name="commandName">Имя команды</param>
 		/// <param name="callback">Обработчик команды</param>
 		/// <returns>true, если команда с таким же названием не была добавлена ранее</returns>
-		public virtual bool TryAdd<BotT>(string commandName, Callback<BotT, IMessage> callback)
-			where BotT: class, IBot
-		{
-			return TryAdd<BotT, IMessage>(commandName, callback);
-		}
-		/// <summary>
-		/// Добавление команды в систему
-		/// </summary>
-		/// <typeparam name="BotT">Тип бота, способного обрабатывать добавляемую команду</typeparam>
-		/// <typeparam name="MessageT">Тип сообщения, способный обрабатываться ботом типа BotT</typeparam>
-		/// <param name="commandName">Имя команды</param>
-		/// <param name="callback">Обработчик команды</param>
-		/// <returns>true, если команда с таким же названием не была добавлена ранее</returns>
-		public virtual bool TryAdd<BotT, MessageT>(string commandName, Callback<BotT, MessageT> callback)
-			where BotT : class, IBot
-			where MessageT: class, IMessage
+		public virtual bool TryAdd<TBot, TMessage>(string commandName, Callback<TBot, TMessage> callback)
 		{
 			if (Commands.ContainsKey(commandName)) return false;
 
@@ -92,47 +78,51 @@ namespace BotPlatfrom.Kernel.Command
 			Commands.Add(commandName, decoratedCommand);
 			return true;
 		}
+
 		/// <summary>
 		/// Асинхронный запуск обработки команды
 		/// </summary>
 		/// <param name="message">сообщени от пользователя</param>
 		/// <param name="bot">бот, способный обработать команду</param>
+		/// <param name="commandSelector"></param>
 		/// <param name="arg">аргументы команды (полученные от бота или из сообщения)</param>
 		/// <returns>true, если команда завершилась без необрабатываемых ошибок</returns>
-		public virtual async Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg)
+		public virtual async Task<bool> ExecuteAsync<TBot, TMessage>
+			(TBot bot, TMessage message, Func<TMessage, string> commandSelector, object arg = null)
 		{
 			/* Проверяет, есть ли команда в системе */
-			if (Commands.TryGetValue(message.Text, out Command command))
+			if (Commands.TryGetValue(commandSelector(message), out Command command))
 			{
 				/* Проверяет, может ли бот данного типа выполнять эту команду */
 				if (command.CanBeExecutedBy(bot, message))
 				{
 					return await command.ExecuteAsync(message, bot, arg);
 				}
-				else return false;
 			}					
-			else return false; /* true - если обработка успешна */
+			return false; /* true - если обработка успешна */
 		}
+
 		/// <summary>
 		/// Запуск обработки команды
 		/// </summary>
 		/// <param name="message">сообщени от пользователя</param>
 		/// <param name="bot">бот, способный обработать команду</param>
+		/// <param name="commandSelector"></param>
 		/// <param name="arg">аргументы команды (полученные от бота или из сообщения)</param>
 		/// <returns>true, если команда завершилась без необрабатываемых ошибок</returns>
-		public virtual bool Execute(IMessage message, IBot bot, object arg = null)
+		public virtual bool Execute<TBot, TMessage>
+			(TBot bot, TMessage message, Func<TMessage, string> commandSelector, object arg = null)
 		{
 			/* Проверяет, есть ли команда в системе */
-			if (Commands.TryGetValue(message.Text, out Command command))
+			if (Commands.TryGetValue(commandSelector(message), out Command command))
 			{
 				/* Проверяет, может ли бот данного типа выполнять эту команду */
 				if (command.CanBeExecutedBy(bot, message))
 				{
 					return command.Execute(message, bot, arg);
 				}
-				else return false;
 			}
-			else return false; /* true - если команда завершилась без необрабатываемых ошибок */
+			return false; /* true - если команда завершилась без необрабатываемых ошибок */
 		}
 	}
 }

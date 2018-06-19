@@ -6,63 +6,51 @@ namespace BotPlatfrom.Kernel.Command
 {
 	public abstract class Command
 	{
-		public Type BotType { get; protected set; } = typeof(IBot);
-		public Type MessageType { get; protected set; } = typeof(IMessage);
-		protected abstract void BeforeExecute(IMessage message, IBot bot, object arg = null);
-		public abstract Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg = null);
-		public abstract bool Execute(IMessage message, IBot bot, object arg = null);
-		protected abstract void AfterExecute(IMessage message, IBot bot, object arg = null);
-		public bool CanBeExecutedBy(IBot bot, IMessage message = null)
+		public Type BotType     { get; protected set; }
+		public Type MessageType { get; protected set; }
+		protected abstract void BeforeExecute(dynamic message, dynamic bot, object arg = null);
+		public    abstract Task<bool> ExecuteAsync(dynamic message, dynamic bot, object arg = null);
+		public    abstract bool Execute(dynamic message, dynamic bot, object arg = null);
+		protected abstract void AfterExecute(dynamic message, dynamic bot, object arg = null);
+		public virtual bool CanBeExecutedBy(object bot, object message)
 		{
-			if (message == null)
-				return BotType.IsInstanceOfType(bot);
 			return BotType.IsInstanceOfType(bot) && MessageType.IsInstanceOfType(message);
+		}
+		protected Command(Type botType, Type messageType)
+		{
+			BotType     = botType;
+			MessageType = messageType;
 		}
 	}
 
-	public class Command<BotT, MessageT> : Command
-		where BotT : class, IBot 
-		where MessageT: class, IMessage
+	public class Command<TBot, TMessage> : Command
 	{
-		public readonly Callback<BotT, MessageT> Callback;
-		public sealed override Task<bool> ExecuteAsync(IMessage message, IBot bot, object arg = null)
+		public readonly Callback<TBot, TMessage> Callback;
+		public sealed override Task<bool> ExecuteAsync(dynamic message, dynamic bot, object arg = null)
 		{
-			var messageT = message as MessageT;
-			if (bot is BotT botT && messageT != null) return ExecuteAsync(messageT, botT, arg);
-
-			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			return ExecuteAsync(message, bot, arg);
 		}
-		public sealed override bool Execute(IMessage message, IBot bot, object arg = null)
+		public sealed override bool Execute(dynamic message, dynamic bot, object arg = null)
 		{
-			var messageT = message as MessageT;
-			if (bot is BotT botT && messageT != null) return Execute(messageT, botT, arg);
-
-			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			return Execute(message, bot, arg);
 		}
-		protected sealed override void BeforeExecute(IMessage message, IBot bot, object arg = null)
+		protected sealed override void BeforeExecute(dynamic message, dynamic bot, object arg = null)
 		{
-			var messageT = message as MessageT;
-			if (bot is BotT botT && messageT != null) BeforeExecute(messageT, botT, arg);
-
-			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			BeforeExecute(message, bot, arg);
 		}
-		protected sealed override void AfterExecute(IMessage message, IBot bot, object arg = null)
+		protected sealed override void AfterExecute(dynamic message, dynamic bot, object arg = null)
 		{
-			var messageT = message as MessageT;
-			if (bot is BotT botT && messageT != null) AfterExecute(messageT, botT, arg);
-
-			throw new InvalidCastException($"Cannot convert type from {message.GetType()} or from {bot.GetType()}");
+			AfterExecute(message, bot, arg);
 		}
 
-		public virtual void BeforeExecute(MessageT message, BotT bot, object arg = null)
+		public virtual void BeforeExecute(TMessage message, TBot bot, object arg = null)
+		{
+		}
+		public virtual void AfterExecute(TMessage message, TBot bot, object arg = null)
 		{
 
 		}
-		public virtual void AfterExecute(MessageT message, BotT bot, object arg = null)
-		{
-
-		}
-		public virtual Task<bool> ExecuteAsync(MessageT message, BotT bot, object arg = null)
+		public virtual Task<bool> ExecuteAsync(TMessage message, TBot bot, object arg = null)
 		{
 			return Task.Run(() =>
 			{
@@ -82,7 +70,7 @@ namespace BotPlatfrom.Kernel.Command
 				}
 			});
 		}
-		public virtual bool Execute(MessageT message, BotT bot, object arg = null)
+		public virtual bool Execute(TMessage message, TBot bot, object arg = null)
 		{
 			try
 			{
@@ -100,32 +88,21 @@ namespace BotPlatfrom.Kernel.Command
 			}
 		}
 
-		public Command(Callback<BotT, MessageT> callback)
+		public Command(Callback<TBot, TMessage> callback) : base(typeof(TBot), typeof(TMessage))
 		{
 			Callback = callback;
-			BotType = typeof(BotT);
-			MessageType = typeof(MessageT);
 		}
 	}
 
-	public class Command<BotT> : Command<BotT, IMessage> where BotT : class, IBot
+	public abstract class AttributedCommand<TBot, TMessage> : Command<TBot, TMessage> 
 	{
-		protected Command(Callback<BotT, IMessage> callback) : base(callback)
-		{
-		}
-	}
-
-	public abstract class AttributedCommand<BotT, MessageT> : Command<BotT, MessageT> 
-		where BotT : class, IBot
-		where MessageT: class, IMessage
-	{
-		protected Command<BotT, MessageT> BaseCommand;
-		protected AttributedCommand(Command<BotT, MessageT> baseCommand) : base(baseCommand.Callback)
+		protected Command<TBot, TMessage> BaseCommand;
+		protected AttributedCommand(Command<TBot, TMessage> baseCommand) : base(baseCommand.Callback)
 		{
 			BaseCommand = baseCommand;
 		}
 
-		public sealed override bool Execute(MessageT message, BotT bot, object arg = null)
+		public sealed override bool Execute(TMessage message, TBot bot, object arg = null)
 		{
 			try
 			{
@@ -142,7 +119,7 @@ namespace BotPlatfrom.Kernel.Command
 				return false;
 			}
 		}
-		public sealed override Task<bool> ExecuteAsync(MessageT message, BotT bot, object arg = null)
+		public sealed override Task<bool> ExecuteAsync(TMessage message, TBot bot, object arg = null)
 		{
 			return Task.Run(() =>
 			{
@@ -163,22 +140,15 @@ namespace BotPlatfrom.Kernel.Command
 			});
 		}
 
-		protected void AttributedBeforeExecute(MessageT message, BotT bot, object arg = null)
+		protected void AttributedBeforeExecute(TMessage message, TBot bot, object arg = null)
 		{
 			BeforeExecute(message, bot, arg);
 			BaseCommand.BeforeExecute(message, bot, arg);
 		}
-		protected void AttributedAfterExecute(MessageT message, BotT bot, object arg = null)
+		protected void AttributedAfterExecute(TMessage message, TBot bot, object arg = null)
 		{
 			AfterExecute(message, bot, arg);
 			BaseCommand.AfterExecute(message, bot, arg);
-		}
-	}
-	public abstract class AttributedCommand<BotT> : AttributedCommand<BotT, IMessage>
-		where BotT : class, IBot
-	{
-		protected AttributedCommand(Command<BotT> baseCommand) : base(baseCommand)
-		{
 		}
 	}
 }

@@ -7,29 +7,24 @@ using System.Threading.Tasks;
 using BotPlatfrom.Kernel.Command;
 using SimpleTelegramBotExample.Attributes;
 using SimpleTelegramBotExample.Implementations;
+using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace SimpleTelegramBotExample.Modules
 {
-	class SimpleCommands : ICommandsModule
+	class SimpleCommands : CommandsModule<TelegramBotClient, Message>
 	{
 		public SimpleCommands() { }
-		public void Initialize()
+		public override void Initialize()
 		{
-			CommandCenter.Instance.TryAdd<SimpleTelegramBot>("/help", HelpCallback);
-			CommandCenter.Instance.TryAdd<SimpleTelegramBot, TMessage>("size", CheckCallback);
+			CommandCenter.TryAdd("/help", HelpCallback);
 		}
 
 		[Log]
-		private void CheckCallback(TMessage message, SimpleTelegramBot bot, object o)
+		private void HelpCallback(Message message, TelegramBotClient bot, object arg = null)
 		{
-			if(message.Instance.Photo == null)
-				bot.Instanse.SendTextMessageAsync(message.UserId, "Attached photo list is empty :c");
+			bot.SendTextMessageAsync(message.From.Id, $"Hello, user{message.From.Id}: ...");
 		}
 
-		[Log]
-		private void HelpCallback(IMessage message, SimpleTelegramBot bot, object obj = null)
-		{
-			bot.Instanse.SendTextMessageAsync(message.UserId, $"Hello, user{message.UserId}: ...");
-		}
 	}
 }

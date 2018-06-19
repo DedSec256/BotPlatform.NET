@@ -12,19 +12,17 @@ namespace SimpleTelegramBotExample.Attributes
 {
 	class LogAttribute : DecorateAttribute
 	{
-		public override AttributedCommand<BotT, MessageT> Decorate<BotT, MessageT>(Command<BotT, MessageT> command)
+		public override AttributedCommand<TBot, TMessage> Decorate<TBot, TMessage>(Command<TBot, TMessage> command)
 		{
-			return new LogAttributedCommand<BotT, MessageT>(command);
+			return new LogAttributedCommand<TBot, TMessage>(command);
 		}
 	}
 
-	internal class LogAttributedCommand<BotT, MessageT> : AttributedCommand<BotT, MessageT> 
-		where BotT: class, IBot
-		where MessageT: class, IMessage
+	internal class LogAttributedCommand<TBot, TMessage> : AttributedCommand<TBot, TMessage> 
 	{
-		public LogAttributedCommand(Command<BotT, MessageT> baseCommand) : base(baseCommand)
+		public LogAttributedCommand(Command<TBot, TMessage> baseCommand) : base(baseCommand)
 		{ }
-		public override void BeforeExecute(MessageT message, BotT bot, object arg = null)
+		public override void BeforeExecute(TMessage message, TBot bot, object arg = null)
 		{
 			Console.WriteLine("Logging...");
 		}
