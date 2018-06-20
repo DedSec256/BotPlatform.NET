@@ -28,21 +28,7 @@ namespace BotPlatfrom.Kernel.System.Commands
 		}
 		protected sealed override Task<bool> ExecuteAsync(TBot bot, TMessage message, object arg = null)
 		{
-			return Task.Run(() =>
-			{
-				try
-				{
-					AttributedBeforeExecute(bot, message, arg);
-					Callback(bot, message, arg);
-					AttributedAfterExecute(bot, message, arg);
-
-					return true;
-				}
-				catch (Exception ex)
-				{
-					return false;
-				}
-			});
+			return Task.Run(() => Execute(bot, message, arg));
 		}
 
 		protected void AttributedBeforeExecute(dynamic bot, dynamic message, object arg = null)
