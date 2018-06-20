@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BotPlatfrom.Kernel.Command;
+using BotPlatfrom.Kernel.System;
 using BotPlatfrom.Kernel.Tools;
 using SimpleTelegramBotExample.Implementations;
 
@@ -14,7 +14,7 @@ namespace SimpleTelegramBotExample
 		static void Main(string[] args)
 		{
 			BotConsole.Writer = (s, type) => { Console.Write(s); };
-
+			var d = CommandCenter.Instance;
 			SimpleTelegramBot bot = new SimpleTelegramBot();
 			bot.StartWork();
 

@@ -5,7 +5,6 @@ using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using BotPlatfrom.Kernel.Command;
 
 namespace BotPlatfrom.Kernel.Interfaces
 {

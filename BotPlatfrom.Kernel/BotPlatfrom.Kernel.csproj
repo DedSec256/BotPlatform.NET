@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BotPlatfrom.Kernel</RootNamespace>
     <AssemblyName>BotPlatfrom.Kernel</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +34,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.ValueTuple.4.5.0-preview1-26216-02\lib\net461\System.ValueTuple.dll</HintPath>
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -43,20 +44,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\Attributes\AttributesFactory.cs" />
-    <Compile Include="Command\Attributes\DecorateAttribute.cs" />
-    <Compile Include="Command\Callback.cs" />
-    <Compile Include="Command\Command.cs" />
-    <Compile Include="Command\CommandCenter.cs" />
-    <Compile Include="Command\Attributes\IgnoreModuleAttribute.cs" />
-    <Compile Include="Command\CommandCenterPoint.cs" />
+    <Compile Include="System\Commands\AttributedCommand.cs" />
+    <Compile Include="System\Attributes\AttributesFactory.cs" />
+    <Compile Include="System\Attributes\DecorateAttribute.cs" />
+    <Compile Include="System\Callback.cs" />
+    <Compile Include="System\Commands\Command.cs" />
+    <Compile Include="System\CommandCenter.cs" />
+    <Compile Include="System\Attributes\IgnoreModuleAttribute.cs" />
+    <Compile Include="System\CommandCenterPoint.cs" />
     <Compile Include="Implementations\Bot.cs" />
-    <Compile Include="Command\CommandsModule.cs" />
+    <Compile Include="System\CommandsModule.cs" />
     <Compile Include="Tools\ILogger.cs" />
     <Compile Include="Interfaces\User.cs" />
     <Compile Include="Tools\BotConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

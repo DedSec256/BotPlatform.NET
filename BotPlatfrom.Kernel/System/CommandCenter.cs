@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using BotPlatfrom.Kernel.Command.Attributes;
-using BotPlatfrom.Kernel.Interfaces;
+using BotPlatfrom.Kernel.System.Attributes;
 using BotPlatfrom.Kernel.Tools;
 
-namespace BotPlatfrom.Kernel.Command
+namespace BotPlatfrom.Kernel.System
 {
 	/// <summary>
 	/// Менеджер команд
@@ -31,10 +29,10 @@ namespace BotPlatfrom.Kernel.Command
 			}
 		}
 
-		protected Dictionary<string, Command> Commands;
+		protected Dictionary<string, dynamic> Commands;
 		protected CommandCenter()
 		{
-			Commands = new Dictionary<string, Command>();
+			Commands = new Dictionary<string, dynamic>();
 		}
 		protected void ExecuteModules()
 		{
@@ -42,22 +40,17 @@ namespace BotPlatfrom.Kernel.Command
 			/* Подключаем модули, создавая обьекты их классов */
 			var typelist =
 				Assembly.GetEntryAssembly().GetTypes()
-					.Where(t => typeof(CommandsModule<,>).IsAssignableFrom(t) &&
+					.Where(t => typeof(CommandsModule).IsAssignableFrom(t) &&
 							    !t.GetCustomAttributes<IgnoreModuleAttribute>().Any())
 					.OrderBy(t => t.FullName).ToArray();
 			foreach (var type in typelist)
 			{
 				BotConsole.Write($"Подключение {type.FullName}...");
-				try
-				{
-					dynamic module = Activator.CreateInstance(type);
-					module.Initialize();
-					BotConsole.Write($"Подключено.\n");
-				}
-				catch
-				{
-					BotConsole.Write($"Ошибка при подключении модуля {type.FullName}\n", MessageType.Error);
-				}
+
+				dynamic module = Activator.CreateInstance(type);
+				module.Initialize();
+
+				BotConsole.Write($"Подключено.\n");
 			}
 			BotConsole.Write("Модули подключены.\n", MessageType.Info);
 		}
@@ -70,11 +63,11 @@ namespace BotPlatfrom.Kernel.Command
 		/// <param name="commandName">Имя команды</param>
 		/// <param name="callback">Обработчик команды</param>
 		/// <returns>true, если команда с таким же названием не была добавлена ранее</returns>
-		public virtual bool TryAdd<TBot, TMessage>(string commandName, Callback<TBot, TMessage> callback)
+		internal virtual bool TryAdd<TBot, TMessage>(string commandName, Callback<TBot, TMessage> callback)
 		{
 			if (Commands.ContainsKey(commandName)) return false;
 
-			var decoratedCommand = callback.GetCommand();
+			var decoratedCommand = callback.GetDecoratedCommand();
 			Commands.Add(commandName, decoratedCommand);
 			return true;
 		}
@@ -91,14 +84,10 @@ namespace BotPlatfrom.Kernel.Command
 			(TBot bot, TMessage message, Func<TMessage, string> commandSelector, object arg = null)
 		{
 			/* Проверяет, есть ли команда в системе */
-			if (Commands.TryGetValue(commandSelector(message), out Command command))
+			if (Commands.TryGetValue(commandSelector(message), out var command))
 			{
-				/* Проверяет, может ли бот данного типа выполнять эту команду */
-				if (command.CanBeExecutedBy(bot, message))
-				{
-					return await command.ExecuteAsync(message, bot, arg);
-				}
-			}					
+				return await command.ExecuteCommandAsync(bot, message, arg);
+			}
 			return false; /* true - если обработка успешна */
 		}
 
@@ -114,13 +103,9 @@ namespace BotPlatfrom.Kernel.Command
 			(TBot bot, TMessage message, Func<TMessage, string> commandSelector, object arg = null)
 		{
 			/* Проверяет, есть ли команда в системе */
-			if (Commands.TryGetValue(commandSelector(message), out Command command))
+			if (Commands.TryGetValue(commandSelector(message), out var command))
 			{
-				/* Проверяет, может ли бот данного типа выполнять эту команду */
-				if (command.CanBeExecutedBy(bot, message))
-				{
-					return command.Execute(message, bot, arg);
-				}
+				return command.ExecuteCommand(bot, message, arg);
 			}
 			return false; /* true - если команда завершилась без необрабатываемых ошибок */
 		}

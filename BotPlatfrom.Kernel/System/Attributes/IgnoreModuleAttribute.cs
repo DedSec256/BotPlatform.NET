@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BotPlatfrom.Kernel.Command.Attributes
+namespace BotPlatfrom.Kernel.System.Attributes
 {
 	/// <summary>
 	/// Атрибут, помечающий модули команд, которые не должны добавляться в систему

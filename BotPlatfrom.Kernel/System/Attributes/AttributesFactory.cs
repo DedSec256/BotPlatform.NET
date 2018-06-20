@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using BotPlatfrom.Kernel.Interfaces;
+using BotPlatfrom.Kernel.System.Commands;
 
-namespace BotPlatfrom.Kernel.Command.Attributes
+namespace BotPlatfrom.Kernel.System.Attributes
 {
 	public static class AttributesFactory
 	{
-		public static Command<TBot, TMessage> GetCommand<TBot, TMessage>(this Callback<TBot, TMessage> signature) 
+		public static Command<TBot, TMessage> GetDecoratedCommand<TBot, TMessage>(this Callback<TBot, TMessage> signature) 
 		{
 			var decoratedCommand = new Command<TBot, TMessage>(signature);
 			var attributesList = signature.Method.GetCustomAttributes<DecorateAttribute>();

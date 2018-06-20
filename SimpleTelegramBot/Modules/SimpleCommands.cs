@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BotPlatfrom.Kernel.Command;
+using BotPlatfrom.Kernel.System;
 using SimpleTelegramBotExample.Attributes;
 using SimpleTelegramBotExample.Implementations;
 using Telegram.Bot;
@@ -21,9 +21,23 @@ namespace SimpleTelegramBotExample.Modules
 		}
 
 		[Log]
-		private void HelpCallback(Message message, TelegramBotClient bot, object arg = null)
+		private void HelpCallback(TelegramBotClient bot, Message message, object arg = null)
 		{
 			bot.SendTextMessageAsync(message.From.Id, $"Hello, user{message.From.Id}: ...");
+		}
+
+	}
+	class SimpleCommands1 : CommandsModule<object, string>
+	{ 
+		public SimpleCommands1() { }
+		public override void Initialize()
+		{
+			CommandCenter.TryAdd("/helsdp", HelpCallback);
+		}
+
+		[Log]
+		private void HelpCallback(object bot, string message, object arg = null)
+		{
 		}
 
 	}

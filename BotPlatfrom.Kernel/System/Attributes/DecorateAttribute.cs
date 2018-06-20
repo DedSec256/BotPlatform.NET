@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BotPlatfrom.Kernel.Interfaces;
+using BotPlatfrom.Kernel.System.Commands;
 
-namespace BotPlatfrom.Kernel.Command.Attributes
+namespace BotPlatfrom.Kernel.System.Attributes
 {
 	/// <summary>
 	/// Атрибут, позволяющий оборачивать функцию-обработчик команды
