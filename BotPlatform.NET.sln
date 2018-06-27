@@ -9,6 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{89
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTelegramBotExample", "SimpleTelegramBot\SimpleTelegramBotExample.csproj", "{9576DAC7-788C-4335-8A22-BEE92618011E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotPlatform.Tests", "BotPlatform.Tests\BotPlatform.Tests.csproj", "{AD3736EA-E19B-4A87-8A08-3A519E311792}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B183191D-ACB2-4116-892B-CEF3BF18B9CD} = {B183191D-ACB2-4116-892B-CEF3BF18B9CD}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +28,10 @@ Global
 		{9576DAC7-788C-4335-8A22-BEE92618011E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9576DAC7-788C-4335-8A22-BEE92618011E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9576DAC7-788C-4335-8A22-BEE92618011E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD3736EA-E19B-4A87-8A08-3A519E311792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD3736EA-E19B-4A87-8A08-3A519E311792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD3736EA-E19B-4A87-8A08-3A519E311792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD3736EA-E19B-4A87-8A08-3A519E311792}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

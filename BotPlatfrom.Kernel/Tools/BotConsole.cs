@@ -14,7 +14,7 @@ namespace BotPlatfrom.Kernel.Tools
 
 	public static class BotConsole
 	{
-		public static ILogger LoggerInstance { get; set; }
+		public static ILogger             LoggerInstance { get; set; }
 		public static Action<string, MessageType> Writer { get; set; }
 		public static void Write(string text, MessageType type = MessageType.Default)
 		{
@@ -24,9 +24,7 @@ namespace BotPlatfrom.Kernel.Tools
 
 		public static void Write(Exception ex)
 		{
-			string exMessage = "---------------------------\n" +
-			                   ex.Message + "\nSTACK_TRACE: " + ex.StackTrace + "\n" +
-			                   "---------------------------";
+			string exMessage = ex.Message + "\nSTACK_TRACE: " + ex.StackTrace;
 			Writer?.Invoke(exMessage, MessageType.Error);
 			LoggerInstance?.LogError(exMessage);
 		}

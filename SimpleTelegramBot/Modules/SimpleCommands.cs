@@ -15,9 +15,12 @@ namespace SimpleTelegramBotExample.Modules
 	class SimpleCommands : CommandsModule<TelegramBotClient, Message>
 	{
 		public SimpleCommands() { }
-		public override void Initialize()
+		public override IEnumerable<(string Name, Callback<TelegramBotClient, Message> Callback)> Initialize()
 		{
-			CommandCenter.TryAdd("/help", HelpCallback);
+			return new (string, Callback<TelegramBotClient, Message>)[]
+			{
+				("/help", HelpCallback)
+			};
 		}
 
 		[Log]
@@ -30,9 +33,12 @@ namespace SimpleTelegramBotExample.Modules
 	class SimpleCommands1 : CommandsModule<object, string>
 	{ 
 		public SimpleCommands1() { }
-		public override void Initialize()
+		public override IEnumerable<(string Name, Callback<object, string> Callback)> Initialize()
 		{
-			CommandCenter.TryAdd("/helsdp", HelpCallback);
+			return new (string, Callback<object, string>)[]
+			{
+				("/help", HelpCallback)
+			};
 		}
 
 		[Log]

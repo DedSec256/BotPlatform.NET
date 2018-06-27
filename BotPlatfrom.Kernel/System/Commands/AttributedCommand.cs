@@ -31,12 +31,12 @@ namespace BotPlatfrom.Kernel.System.Commands
 			return Task.Run(() => Execute(bot, message, arg));
 		}
 
-		protected void AttributedBeforeExecute(dynamic bot, dynamic message, object arg = null)
+		protected void AttributedBeforeExecute(TBot bot, TMessage message, object arg = null)
 		{
 			BeforeExecute(bot, message, arg);
 			BaseCommand.BeforeExecute(bot, message, arg);
 		}
-		protected void AttributedAfterExecute(dynamic bot, dynamic message, object arg = null)
+		protected void AttributedAfterExecute(TBot bot, TMessage message, object arg = null)
 		{
 			AfterExecute(bot, message, arg);
 			BaseCommand.AfterExecute(bot, message, arg);

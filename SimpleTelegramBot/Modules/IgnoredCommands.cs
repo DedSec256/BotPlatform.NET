@@ -13,13 +13,11 @@ namespace SimpleTelegramBotExample.Modules
 	[IgnoreModule]
 	class IgnoredCommands : CommandsModule<object, object>
 	{
-		public IgnoredCommands()
-		{
-			
-		}
-		public override void Initialize()
+		public IgnoredCommands() { }
+		public override IEnumerable<(string Name, Callback<object, object> Callback)> Initialize()
 		{
 			/* Этот метод не вызовется */
+			return null;
 		}
 	}
 }

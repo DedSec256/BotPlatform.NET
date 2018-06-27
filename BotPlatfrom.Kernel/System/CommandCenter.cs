@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using BotPlatfrom.Kernel.System.Attributes;
 using BotPlatfrom.Kernel.Tools;
@@ -14,6 +15,19 @@ namespace BotPlatfrom.Kernel.System
 	public class CommandCenter
 	{
 		protected static CommandCenter InstanceHolder;
+
+		private bool _enableAutoAssemble;
+		private bool _isAssembled;
+		public bool EnableAutoAssemble
+		{
+			get => _enableAutoAssemble;
+			set
+			{
+				_enableAutoAssemble = value;
+				if(_enableAutoAssemble && !_isAssembled)
+					ExecuteModules();
+			}
+		}
 		/// <summary>
 		/// Статический экземпляр менеджера команд
 		/// </summary>
@@ -24,7 +38,6 @@ namespace BotPlatfrom.Kernel.System
 				if (InstanceHolder != null) return InstanceHolder;
 
 				InstanceHolder = new CommandCenter();
-				InstanceHolder.ExecuteModules();
 				return InstanceHolder;
 			}
 		}
@@ -38,21 +51,44 @@ namespace BotPlatfrom.Kernel.System
 		{
 			BotConsole.Write("[Подключение модулей...]\n", MessageType.System);
 			/* Подключаем модули, создавая обьекты их классов */
-			var typelist =
-				Assembly.GetEntryAssembly().GetTypes()
-					.Where(t => typeof(CommandsModule).IsAssignableFrom(t) &&
-							    !t.GetCustomAttributes<IgnoreModuleAttribute>().Any())
-					.OrderBy(t => t.FullName).ToArray();
-			foreach (var type in typelist)
+			var assembly = Assembly.GetEntryAssembly();
+
+			assembly.IfNotNull(a =>
 			{
-				BotConsole.Write($"Подключение {type.FullName}...");
+				var typelist = assembly.GetTypes()
+					.Where(t => typeof(CommandsModule).IsAssignableFrom(t) &&
+					            !t.GetCustomAttributes<IgnoreModuleAttribute>().Any())
+					.OrderBy(t => t.FullName).ToArray();
+				foreach (var type in typelist)
+				{
+					BotConsole.Write($"Подключение {type.FullName}...");
 
-				dynamic module = Activator.CreateInstance(type);
-				module.Initialize();
+					dynamic module = Activator.CreateInstance(type);
+					AddModule(module);
 
-				BotConsole.Write($"Подключено.\n");
-			}
+					BotConsole.Write($"Подключено.\n");
+				}
+			});
 			BotConsole.Write("Модули подключены.\n", MessageType.Info);
+			_isAssembled = true;
+		}
+
+		public void AddModule<TBot, TMessage>(CommandsModule<TBot, TMessage> module)
+		{
+			var result = module.Initialize();
+
+			result.IfNotNull(res =>
+			{
+				foreach (var command in res)
+				{
+					TryAdd(command.Name, command.Callback);
+				}
+			});
+		}
+
+		public bool ContainsCommand(string command)
+		{
+			return Commands.ContainsKey(command);
 		}
 
 		/// <summary>

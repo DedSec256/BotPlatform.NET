@@ -1,5 +1,6 @@
 ﻿using System;
 using BotPlatfrom.Kernel.Implementations;
+using BotPlatfrom.Kernel.Implementations.Bots;
 using BotPlatfrom.Kernel.Interfaces;
 using BotPlatfrom.Kernel.System;
 using BotPlatfrom.Kernel.Tools;
@@ -16,7 +17,7 @@ namespace SimpleTelegramBotExample.Implementations
 		{
 			try
 			{
-				Instanse = new TelegramBotClient("AuthToken");
+				Instanse = new TelegramBotClient("Token");
 				Instanse.SetWebhookAsync("");
 				return true;
 			}
