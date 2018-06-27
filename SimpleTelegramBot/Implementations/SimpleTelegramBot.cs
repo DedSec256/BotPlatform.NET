@@ -1,7 +1,6 @@
 ﻿using System;
 using BotPlatfrom.Kernel.Implementations;
 using BotPlatfrom.Kernel.Implementations.Bots;
-using BotPlatfrom.Kernel.Interfaces;
 using BotPlatfrom.Kernel.System;
 using BotPlatfrom.Kernel.Tools;
 using Telegram.Bot;

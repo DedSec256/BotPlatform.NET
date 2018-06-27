@@ -2,9 +2,19 @@
 
 namespace BotPlatfrom.Kernel.Implementations.Bots
 {
+	/// <summary>
+	/// Пример базового класса бота
+	/// </summary>
 	public abstract class Bot
 	{
+		/// <summary>
+		/// Прошёл ли бот авторизацию
+		/// </summary>
 		protected bool IsAuthorized = false;
+		/// <summary>
+		/// Определите аторизацию бота тут
+		/// </summary>
+		/// <returns></returns>
 		public abstract bool Authorize();
 		public void StartWork()
 		{
@@ -13,6 +23,9 @@ namespace BotPlatfrom.Kernel.Implementations.Bots
 				throw new InvalidOperationException("Не удалось авторизовать бота");
 			StartBotWork();
 		}
+		/// <summary>
+		/// Определите поведение бота после авторизации тут
+		/// </summary>
 		protected abstract void StartBotWork();
 	}
 }

@@ -14,8 +14,11 @@ namespace SimpleTelegramBotExample
 		static void Main(string[] args)
 		{
 			BotConsole.Writer = (s, type) => { Console.Write(s); };
-			var d = CommandCenter.Instance;
-			SimpleTelegramBot bot = new SimpleTelegramBot();
+
+			/* Включаем рефлексивную сборку модулей */
+			CommandCenter.Instance.EnableAutoAssemble = true;
+
+			var bot = new SimpleTelegramBot();
 			bot.StartWork();
 
 			Console.ReadKey();
