@@ -9,11 +9,11 @@ namespace BotPlatform.Tests.CommandCenterTests
 {
 	class TestCommandModule : CommandsModule<string, string>
 	{
-		public override IEnumerable<(string Name, Callback<string, string> Callback)> Initialize()
+		public override IDictionary<string, Callback<string, string>> Initialize()
 		{
-			return new (string, Callback<string, string>)[]
+			return new Dictionary<string, Callback<string, string>>()
 			{
-				("help", HelpCallback)
+				{"help", HelpCallback}
 			};
 		}
 

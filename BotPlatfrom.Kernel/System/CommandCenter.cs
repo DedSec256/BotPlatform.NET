@@ -79,9 +79,9 @@ namespace BotPlatfrom.Kernel.System
 
 			result.IfNotNull(res =>
 			{
-				foreach (var command in res)
+				if (res.Any(command => !TryAdd(command.Key, command.Value)))
 				{
-					TryAdd(command.Name, command.Callback);
+					throw new InvalidOperationException("Команда с заданным ключём уже существует");
 				}
 			});
 		}

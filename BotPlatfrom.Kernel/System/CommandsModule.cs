@@ -9,6 +9,6 @@ namespace BotPlatfrom.Kernel.System
 	}
 	public abstract class CommandsModule<TBot, TMessage> : CommandsModule
 	{
-		public abstract IEnumerable<(string Name, Callback<TBot, TMessage> Callback)> Initialize();
+		public abstract IDictionary<string, Callback<TBot, TMessage>> Initialize();
 	}
 }
