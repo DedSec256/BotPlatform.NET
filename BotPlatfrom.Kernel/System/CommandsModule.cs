@@ -5,7 +5,7 @@ namespace BotPlatfrom.Kernel.System
 {
 	public abstract class CommandsModule
 	{
-		
+		public virtual void Initialize() { }
 	}
 	public abstract class CommandsModule<TBot, TMessage> : CommandsModule
 	{

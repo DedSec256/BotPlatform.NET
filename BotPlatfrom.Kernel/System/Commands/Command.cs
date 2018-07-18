@@ -17,7 +17,10 @@ namespace BotPlatfrom.Kernel.System.Commands
 		}
 		public bool ExecuteCommand(dynamic bot, dynamic message, object arg = null)
 		{
-			return CanBeExecutedBy(bot, message) && Execute(bot, message, arg);
+			if (CanBeExecutedBy(bot, message))
+			{
+				Execute(bot, message, arg);
+			}
 		}
 		public virtual bool CanBeExecutedBy(object bot, object message)
 		{
