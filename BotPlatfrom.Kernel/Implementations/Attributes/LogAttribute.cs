@@ -4,15 +4,20 @@ using BotPlatfrom.Kernel.Tools;
 
 namespace BotPlatfrom.Kernel.Implementations.Attributes
 {
+	/// <summary>
+	/// Базовый атрибут для логирования
+	/// </summary>
 	public class LogAttribute : DecorateAttribute
 	{
 		private readonly string _logText;
-
-		public LogAttribute(string logText)
+		/// <summary>
+		/// Информационный текст логгирования
+		/// </summary>
+		/// <param name="logText"></param>
+		public LogAttribute(string logText = "")
 		{
 			_logText = logText;
 		}
-		public LogAttribute() { }
 
 		public override AttributedCommand<TBot, TMessage> Decorate<TBot, TMessage>(Command<TBot, TMessage> command)
 		{

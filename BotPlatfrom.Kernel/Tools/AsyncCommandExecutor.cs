@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BotPlatfrom.Kernel.Tools
 {
-	/*
+	
 	public class AsyncCommandExecutor : IAsyncCommandExecutor
 	{
-		public Task<bool> Run<TBot, TMessage>(Func<TBot, TMessage, Func<TMessage, string>, object, bool> func)
+		public Task<bool> Run(Func<bool> func)
 		{
-			return Task.Run(() => func);
+			return Task.Run(func);
 		}
 	}
-	*/
+	
 }

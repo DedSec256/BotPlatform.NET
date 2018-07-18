@@ -6,6 +6,6 @@ namespace BotPlatfrom.Kernel.Tools
 {
 	public interface IAsyncCommandExecutor
 	{
-		Task<bool> Run<TBot, TMessage>(Func<TBot, TMessage, Func<TMessage, string>, object, bool> func);
+		Task<bool> Run(Func<bool> func);
 	}
 }

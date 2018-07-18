@@ -13,8 +13,6 @@ namespace BotPlatfrom.Kernel.System
 	/// </summary>
 	public class CommandCenter
 	{
-		protected static CommandCenter InstanceHolder;
-
 		private bool _enableAutoAssemble;
 		private bool _isAssembled;
 		public bool EnableAutoAssemble
@@ -41,6 +39,9 @@ namespace BotPlatfrom.Kernel.System
 			}
 		}
 
+		public static IAsyncCommandExecutor AsyncCommandExecutor { get; set; } = new AsyncCommandExecutor();
+
+		protected static CommandCenter InstanceHolder;
 		protected Dictionary<string, dynamic> Commands;
 		protected CommandCenter()
 		{
@@ -121,11 +122,10 @@ namespace BotPlatfrom.Kernel.System
 		/// <param name="commandSelector"></param>
 		/// <param name="arg">аргументы команды (полученные от бота или из сообщения)</param>
 		/// <returns>true, если команда завершилась без необрабатываемых ошибок</returns>
-		[Obsolete("В следующей версии появится асинхронный менеджер")]
 		public async Task<bool> ExecuteAsync<TBot, TMessage>
 			(TBot bot, TMessage message, Func<TMessage, string> commandSelector, object arg = null)
 		{
-			return await Task.Run(() => Execute(bot, message, commandSelector, arg));
+			return await AsyncCommandExecutor.Run(() => Execute(bot, message, commandSelector, arg));
 		}
 
 		/// <summary>
