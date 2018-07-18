@@ -17,7 +17,7 @@ namespace BotPlatfrom.Kernel.Interfaces
 	
 		public virtual void SetDefaultContext()
 		{
-			Context = (contextPredicate: new Regex(".*"), /* Принимает любые сообщения 
+			Context = (contextPredicate: new Regex(".*"), /* Принимает любые сообщения  
 					   Done: async (message, bot, arg) =>
 					   {
 							/* Запускает обработку команды 
