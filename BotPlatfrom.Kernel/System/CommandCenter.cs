@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using BotPlatfrom.Kernel.System.Attributes;
 using BotPlatfrom.Kernel.Tools;
@@ -50,22 +49,19 @@ namespace BotPlatfrom.Kernel.System
 		protected void ExecuteModules()
 		{
 			BotConsole.Write("[Подключение модулей...]\n", MessageType.System);
-			/* Подключаем модули, создавая обьекты их классов */
 			var assembly = Assembly.GetEntryAssembly();
 
 			assembly.IfNotNull(a =>
 			{
 				var typelist = assembly.GetTypes()
-					.Where(t => typeof(CommandsModule).IsAssignableFrom(t) &&
+					.Where(t => t.GetInterface(typeof(ICommandsModule<,>).FullName) != null &&
 					            !t.GetCustomAttributes<IgnoreModuleAttribute>().Any())
 					.OrderBy(t => t.FullName).ToArray();
 				foreach (var type in typelist)
 				{
 					BotConsole.Write($"Подключение {type.FullName}...");
-
 					dynamic module = Activator.CreateInstance(type);
 					AddModule(module);
-
 					BotConsole.Write($"Подключено.\n");
 				}
 			});
@@ -73,15 +69,24 @@ namespace BotPlatfrom.Kernel.System
 			_isAssembled = true;
 		}
 
-		public void AddModule<TBot, TMessage>(CommandsModule<TBot, TMessage> module)
+		/// <summary>
+		/// Добавляет модуль команд в систему
+		/// </summary>
+		/// <typeparam name="TBot"></typeparam>
+		/// <typeparam name="TMessage"></typeparam>
+		/// <param name="module"></param>
+		public void AddModule<TBot, TMessage>(ICommandsModule<TBot, TMessage> module)
 		{
 			var result = module.Initialize();
 
-			result.IfNotNull(res =>
+			result.IfNotNull(commands =>
 			{
-				if (res.Any(command => !TryAdd(command.Key, command.Value)))
+				foreach (var command in commands)
 				{
-					throw new InvalidOperationException("Команда с заданным ключём уже существует");
+					if (!TryAdd(command.Key, command.Value))
+					{
+						throw new InvalidOperationException($"Команда с ключём {command} уже существует");
+					}
 				}
 			});
 		}
@@ -116,15 +121,11 @@ namespace BotPlatfrom.Kernel.System
 		/// <param name="commandSelector"></param>
 		/// <param name="arg">аргументы команды (полученные от бота или из сообщения)</param>
 		/// <returns>true, если команда завершилась без необрабатываемых ошибок</returns>
-		public virtual async Task<bool> ExecuteAsync<TBot, TMessage>
+		[Obsolete("В следующей версии появится асинхронный менеджер")]
+		public async Task<bool> ExecuteAsync<TBot, TMessage>
 			(TBot bot, TMessage message, Func<TMessage, string> commandSelector, object arg = null)
 		{
-			/* Проверяет, есть ли команда в системе */
-			if (Commands.TryGetValue(commandSelector(message), out var command))
-			{
-				return await command.ExecuteCommandAsync(bot, message, arg);
-			}
-			return false; /* true - если обработка успешна */
+			return await Task.Run(() => Execute(bot, message, commandSelector, arg));
 		}
 
 		/// <summary>
@@ -141,9 +142,10 @@ namespace BotPlatfrom.Kernel.System
 			/* Проверяет, есть ли команда в системе */
 			if (Commands.TryGetValue(commandSelector(message), out var command))
 			{
-				return command.ExecuteCommand(bot, message, arg);
+				if (command.CanBeExecutedBy(bot, message))
+					return command.ExecuteCommand(bot, message, arg);
 			}
-			return false; /* true - если команда завершилась без необрабатываемых ошибок */
+			return false; 
 		}
 	}
 }

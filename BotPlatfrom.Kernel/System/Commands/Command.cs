@@ -5,39 +5,44 @@ namespace BotPlatfrom.Kernel.System.Commands
 {
 	public class Command<TBot, TMessage>
 	{
+		/// <summary>
+		/// Тип бота 
+		/// </summary>
 		public Type BotType     = typeof(TBot);
+		/// <summary>
+		/// Тип сообщений, принимаемого ботом
+		/// </summary>
 		public Type MessageType = typeof(TMessage);
+		/// <summary>
+		/// Обработчик команды
+		/// </summary>
 		public readonly Callback<TBot, TMessage> Callback;
-
-		public virtual void BeforeExecute(TBot bot, TMessage message, object arg = null){ }
-		public virtual void AfterExecute(TBot bot, TMessage message, object arg = null) { }
-		public Task<bool> ExecuteCommandAsync(dynamic bot, dynamic message, object arg = null)
-		{
-			return CanBeExecutedBy(bot, message) && ExecuteAsync(bot, message, arg);
-		}
-		public bool ExecuteCommand(dynamic bot, dynamic message, object arg = null)
-		{
-			if (CanBeExecutedBy(bot, message))
-			{
-				Execute(bot, message, arg);
-			}
-		}
-		public virtual bool CanBeExecutedBy(object bot, object message)
+		/// <summary>
+		/// Проверка возможности выполнения команды
+		/// </summary>
+		/// <param name="bot"></param>
+		/// <param name="message"></param>
+		/// <returns>true, если bot может выполнить команду из сообщения message</returns>
+		public bool CanBeExecutedBy(object bot, object message)
 		{
 			return BotType.IsInstanceOfType(bot) && MessageType.IsInstanceOfType(message);
 		}
-		protected virtual Task<bool> ExecuteAsync(TBot bot, TMessage message, object arg = null)
+		/// <summary>
+		/// Запуск обработки команды
+		/// </summary>
+		/// <param name="bot"></param>
+		/// <param name="message"></param>
+		/// <param name="arg"></param>
+		/// <returns></returns>
+		public bool ExecuteCommand(TBot bot, TMessage message, object arg = null)
 		{
-			return Task.Run(() => Execute(bot, message, arg));
+			return Execute(bot, message, arg);
 		}
 		protected virtual bool Execute(TBot bot, TMessage message, object arg = null)
 		{
 			try
 			{
-				BeforeExecute(bot, message, arg);
 				Callback(bot, message, arg);
-				AfterExecute(bot, message, arg);
-
 				return true;
 			}
 			catch (Exception ex)

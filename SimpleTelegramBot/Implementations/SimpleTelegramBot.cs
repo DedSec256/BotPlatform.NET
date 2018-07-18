@@ -16,14 +16,14 @@ namespace SimpleTelegramBotExample.Implementations
 		{
 			try
 			{
-				Instanse = new TelegramBotClient("Token");
+				Instanse = new TelegramBotClient("398931706:AAEUZBNEWcpEUK-qUbzB8gXBaNxYXvfQATk");
 				Instanse.SetWebhookAsync("");
 				return true;
 			}
 			catch { return false; }
 		}
 		protected override void StartBotWork()
-		{
+		{ 
 			Instanse.OnUpdate += Bot_OnUpdate;
 			Instanse.StartReceiving();
 		}
@@ -34,7 +34,7 @@ namespace SimpleTelegramBotExample.Implementations
 				var update = e.Update;
 				var message = update.Message;
 
-				CommandCenter.Instance.Execute(Instanse, message, m => m.Text);
+				CommandCenter.Instance.Execute(Instanse, message, m => m.Text ?? "");
 			}
 			catch (Exception ex) { BotConsole.Write(ex); }
 		}

@@ -9,7 +9,7 @@ namespace BotPlatform.Tests.CommandCenterTests
 	{
 		/// <summary>
 		/// Проверяем, выполняется ли проверка ботов на возможность
-		/// выаолнения команды
+		/// выполнения команды
 		/// </summary>
 		[TestMethod]
 		public void CanBeExecutedByBotTest()

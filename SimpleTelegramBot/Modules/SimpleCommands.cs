@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using BotPlatfrom.Kernel.Implementations.Attributes;
 using BotPlatfrom.Kernel.System;
-using SimpleTelegramBotExample.Attributes;
-using SimpleTelegramBotExample.Implementations;
+using BotPlatfrom.Kernel.System.Attributes;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace SimpleTelegramBotExample.Modules
 {
-	class SimpleCommands : CommandsModule<TelegramBotClient, Message>
-	{
-		public SimpleCommands() { }         
-		public override IDictionary<string, Callback<TelegramBotClient, Message>> Initialize()
+	class SimpleCommands : ICommandsModule<TelegramBotClient, Message>
+	{      
+		public IDictionary<string, Callback<TelegramBotClient, Message>> Initialize()
 		{
 			return new Dictionary<string, Callback<TelegramBotClient, Message>>()
 			{
@@ -22,17 +17,18 @@ namespace SimpleTelegramBotExample.Modules
 			};
 		}
 
-		[Log]
+		[Log("HelpTest")]
 		private void HelpCallback(TelegramBotClient bot, Message message, object arg = null)
 		{
 			bot.SendTextMessageAsync(message.From.Id, $"Hello, user{message.From.Id}: ...");
 		}
 
 	}
-	class SimpleCommands1 : CommandsModule<object, string>
+
+	[IgnoreModule]
+	class SimpleCommands1 : ICommandsModule<object, string>
 	{ 
-		public SimpleCommands1() { }
-		public override IDictionary<string, Callback<object, string>> Initialize()
+		public IDictionary<string, Callback<object, string>> Initialize()
 		{
 			return new Dictionary<string, Callback<object, string>>()
 			{
@@ -42,8 +38,7 @@ namespace SimpleTelegramBotExample.Modules
 
 		[Log]
 		private void HelpCallback(object bot, string message, object arg = null)
-		{
-		}
+		{ }
 
 	}
 }

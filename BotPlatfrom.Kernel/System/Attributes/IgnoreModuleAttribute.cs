@@ -7,6 +7,5 @@ namespace BotPlatfrom.Kernel.System.Attributes
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public class IgnoreModuleAttribute : Attribute
-	{
-	}
+	{ }
 }

@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\Attributes\LogAttribute.cs" />
     <Compile Include="System\Commands\AttributedCommand.cs" />
     <Compile Include="System\Attributes\AttributesFactory.cs" />
     <Compile Include="System\Attributes\DecorateAttribute.cs" />
@@ -53,15 +54,15 @@
     <Compile Include="System\Attributes\IgnoreModuleAttribute.cs" />
     <Compile Include="Implementations\Bots\Bot.cs" />
     <Compile Include="System\CommandsModule.cs" />
+    <Compile Include="Tools\AsyncCommandExecutor.cs" />
+    <Compile Include="Tools\IAsyncCommandExecutor.cs" />
     <Compile Include="Tools\ILogger.cs" />
     <Compile Include="Interfaces\User.cs" />
     <Compile Include="Tools\BotConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ToolExtensions.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Implementations\Attributes\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

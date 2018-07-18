@@ -7,9 +7,9 @@ using BotPlatfrom.Kernel.System;
 
 namespace BotPlatform.Tests.CommandCenterTests
 {
-	class TestCommandModule : CommandsModule<string, string>
+	class TestCommandModule : ICommandsModule<string, string>
 	{
-		public override IDictionary<string, Callback<string, string>> Initialize()
+		public IDictionary<string, Callback<string, string>> Initialize()
 		{
 			return new Dictionary<string, Callback<string, string>>()
 			{
