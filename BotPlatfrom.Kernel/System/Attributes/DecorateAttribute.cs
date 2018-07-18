@@ -11,7 +11,7 @@ namespace BotPlatfrom.Kernel.System.Attributes
 	{
 		/// <summary>
 		/// Возвращает обёрнутую команду
-		/// в теле вызывает: return new MyAttributedCommand(command);
+		/// в теле вызывает: return new MyAttributedCommand(command, ...);
 		/// </summary>
 		/// <typeparam name="TBot">Тип бота, способного обрабатывать добавляемую команду</typeparam>
 		/// <typeparam name="TMessage">Тип сообщения, способный обрабатываться ботом типа BotT</typeparam>
