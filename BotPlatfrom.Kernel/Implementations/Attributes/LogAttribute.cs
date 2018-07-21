@@ -11,9 +11,8 @@ namespace BotPlatfrom.Kernel.Implementations.Attributes
 	{
 		private readonly string _logText;
 		/// <summary>
-		/// Информационный текст логгирования
 		/// </summary>
-		/// <param name="logText"></param>
+		/// <param name="logText">Текст логирования</param>
 		public LogAttribute(string logText = "")
 		{
 			_logText = logText;

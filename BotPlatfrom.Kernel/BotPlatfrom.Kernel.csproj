@@ -57,12 +57,14 @@
     <Compile Include="Tools\AsyncCommandExecutor.cs" />
     <Compile Include="Tools\IAsyncCommandExecutor.cs" />
     <Compile Include="Tools\ILogger.cs" />
-    <Compile Include="Interfaces\User.cs" />
+    <Compile Include="Communication\User.cs" />
     <Compile Include="Tools\BotConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\ToolExtensions.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Interfaces\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

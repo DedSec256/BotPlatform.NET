@@ -16,7 +16,7 @@ namespace BotPlatfrom.Kernel.System.Commands
 		/// <summary>
 		/// Обработчик команды
 		/// </summary>
-		public readonly Callback<TBot, TMessage> Callback;
+		private readonly Callback<TBot, TMessage> _callback;
 		/// <summary>
 		/// Проверка возможности выполнения команды
 		/// </summary>
@@ -42,7 +42,7 @@ namespace BotPlatfrom.Kernel.System.Commands
 		{
 			try
 			{
-				Callback(bot, message, arg);
+				_callback(bot, message, arg);
 				return true;
 			}
 			catch (Exception ex)
@@ -53,7 +53,9 @@ namespace BotPlatfrom.Kernel.System.Commands
 
 		public Command(Callback<TBot, TMessage> callback)
 		{
-			Callback = callback;
+			_callback = callback;
 		}
+
+		protected Command() { }
 	}
 }

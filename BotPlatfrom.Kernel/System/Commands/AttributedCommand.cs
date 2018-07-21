@@ -6,7 +6,7 @@
 		/// Декорируемая команда
 		/// </summary>
 		protected Command<TBot, TMessage> BaseCommand;
-		protected AttributedCommand(Command<TBot, TMessage> baseCommand) : base(baseCommand.Callback)
+		protected AttributedCommand(Command<TBot, TMessage> baseCommand)
 		{
 			BaseCommand = baseCommand;
 		}
