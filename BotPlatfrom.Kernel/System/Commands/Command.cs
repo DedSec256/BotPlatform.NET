@@ -8,11 +8,11 @@ namespace BotPlatfrom.Kernel.System.Commands
 		/// <summary>
 		/// Тип бота 
 		/// </summary>
-		public Type BotType     = typeof(TBot);
+		public readonly Type BotType     = typeof(TBot);
 		/// <summary>
 		/// Тип сообщений, принимаемого ботом
 		/// </summary>
-		public Type MessageType = typeof(TMessage);
+		public readonly Type MessageType = typeof(TMessage);
 		/// <summary>
 		/// Обработчик команды
 		/// </summary>
