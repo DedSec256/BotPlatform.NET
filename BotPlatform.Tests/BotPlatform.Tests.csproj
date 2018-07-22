@@ -56,7 +56,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BotPlatfrom.Kernel\BotPlatform.Core.csproj">
+    <ProjectReference Include="..\BotPlatfrom.Core\BotPlatform.Core.csproj">
       <Project>{b183191d-acb2-4116-892b-cef3bf18b9cd}</Project>
       <Name>BotPlatform.Core</Name>
     </ProjectReference>
