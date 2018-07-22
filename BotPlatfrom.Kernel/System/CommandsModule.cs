@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BotPlatfrom.Kernel.System
+namespace BotPlatform.Core.System
 {
 	public interface ICommandsModule<TBot, TMessage>
 	{

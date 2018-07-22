@@ -1,5 +1,4 @@
-﻿using System;
-using BotPlatfrom.Kernel.System;
+﻿using BotPlatform.Core.System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BotPlatform.Tests.CommandCenterTests

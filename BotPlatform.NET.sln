@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotPlatfrom.Kernel", "BotPlatfrom.Kernel\BotPlatfrom.Kernel.csproj", "{B183191D-ACB2-4116-892B-CEF3BF18B9CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotPlatform.Core", "BotPlatfrom.Kernel\BotPlatform.Core.csproj", "{B183191D-ACB2-4116-892B-CEF3BF18B9CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{899023F8-E1BC-4865-94DC-54BEFCAE6CEE}"
 EndProject

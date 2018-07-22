@@ -1,6 +1,6 @@
 ﻿using System;
-using BotPlatfrom.Kernel.System;
-using BotPlatfrom.Kernel.Tools;
+using BotPlatform.Core.System;
+using BotPlatform.Core.Tools;
 using SimpleTelegramBotExample.Implementations;
 
 namespace SimpleTelegramBotExample

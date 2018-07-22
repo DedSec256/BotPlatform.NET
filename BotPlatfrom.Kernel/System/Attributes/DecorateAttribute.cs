@@ -1,7 +1,7 @@
 ﻿using System;
-using BotPlatfrom.Kernel.System.Commands;
+using BotPlatform.Core.System.Commands;
 
-namespace BotPlatfrom.Kernel.System.Attributes
+namespace BotPlatform.Core.System.Attributes
 {
 	/// <summary>
 	/// Атрибут, позволяющий оборачивать функцию-обработчик команды

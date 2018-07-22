@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
+using BotPlatform.Core.Tools;
 
-namespace BotPlatfrom.Kernel.System.Commands
+namespace BotPlatform.Core.System.Commands
 {
 	public class Command<TBot, TMessage>
 	{
@@ -47,6 +47,7 @@ namespace BotPlatfrom.Kernel.System.Commands
 			}
 			catch (Exception ex)
 			{
+				BotConsole.Write(ex);
 				return false;
 			}
 		}

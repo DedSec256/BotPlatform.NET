@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BotPlatfrom.Kernel.System;
-using BotPlatfrom.Kernel.System.Attributes;
+using BotPlatform.Core.System;
+using BotPlatform.Core.System.Attributes;
 
 namespace SimpleTelegramBotExample.Modules
 {

@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using System.Reflection;
-using BotPlatfrom.Kernel.System.Commands;
+using BotPlatform.Core.System.Commands;
 
-namespace BotPlatfrom.Kernel.System.Attributes
+namespace BotPlatform.Core.System.Attributes
 {
 	public static class AttributesFactory
 	{

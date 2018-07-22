@@ -1,11 +1,9 @@
 ﻿using System;
-using BotPlatfrom.Kernel.Implementations;
-using BotPlatfrom.Kernel.Implementations.Bots;
-using BotPlatfrom.Kernel.System;
-using BotPlatfrom.Kernel.Tools;
+using BotPlatform.Core.System;
+using BotPlatform.Core.Tools;
+using BotPlatform.Core.Implementations.Bots;
 using Telegram.Bot;
 using Telegram.Bot.Args;
-using Telegram.Bot.Types;
 
 namespace SimpleTelegramBotExample.Implementations
 {

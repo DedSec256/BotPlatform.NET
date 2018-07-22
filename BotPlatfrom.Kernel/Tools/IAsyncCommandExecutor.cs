@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BotPlatfrom.Kernel.Tools
+namespace BotPlatform.Core.Tools
 {
 	public interface IAsyncCommandExecutor
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BotPlatfrom.Kernel.Tools
+namespace BotPlatform.Core.Tools
 {
 	public enum MessageType
 	{
@@ -23,7 +23,7 @@ namespace BotPlatfrom.Kernel.Tools
 
 		public static void Write(Exception ex)
 		{
-			string exMessage = ex.Message + "\nSTACK_TRACE: " + ex.StackTrace;
+			var exMessage = $"{ex.Message}\nSTACK_TRACE: {ex.StackTrace}";
 			Writer?.Invoke(exMessage, MessageType.Error);
 			LoggerInstance?.LogError(exMessage);
 		}

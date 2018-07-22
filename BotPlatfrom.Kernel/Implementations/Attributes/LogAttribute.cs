@@ -1,8 +1,8 @@
-﻿using BotPlatfrom.Kernel.System.Attributes;
-using BotPlatfrom.Kernel.System.Commands;
-using BotPlatfrom.Kernel.Tools;
+﻿using BotPlatform.Core.System.Attributes;
+using BotPlatform.Core.System.Commands;
+using BotPlatform.Core.Tools;
 
-namespace BotPlatfrom.Kernel.Implementations.Attributes
+namespace BotPlatform.Core.Implementations.Attributes
 {
 	/// <summary>
 	/// Базовый атрибут для логирования

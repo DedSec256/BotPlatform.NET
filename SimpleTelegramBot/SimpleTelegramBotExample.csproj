@@ -60,9 +60,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BotPlatfrom.Kernel\BotPlatfrom.Kernel.csproj">
+    <ProjectReference Include="..\BotPlatfrom.Kernel\BotPlatform.Core.csproj">
       <Project>{B183191D-ACB2-4116-892B-CEF3BF18B9CD}</Project>
-      <Name>BotPlatfrom.Kernel</Name>
+      <Name>BotPlatform.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

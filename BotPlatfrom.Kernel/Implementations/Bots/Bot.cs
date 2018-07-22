@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BotPlatfrom.Kernel.Implementations.Bots
+namespace BotPlatform.Core.Implementations.Bots
 {
 	/// <summary>
 	/// Пример базового класса бота

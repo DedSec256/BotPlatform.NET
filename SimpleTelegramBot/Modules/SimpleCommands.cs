@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using BotPlatfrom.Kernel.Implementations.Attributes;
-using BotPlatfrom.Kernel.System;
-using BotPlatfrom.Kernel.System.Attributes;
+using BotPlatform.Core.System;
+using BotPlatform.Core.System.Attributes;
+using BotPlatform.Core.Implementations.Attributes;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BotPlatfrom.Kernel.System;
+﻿using System.Collections.Generic;
+using BotPlatform.Core.System;
 
 namespace BotPlatform.Tests.CommandCenterTests
 {

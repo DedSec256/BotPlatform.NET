@@ -1,2 +1,5 @@
 language: csharp
 solution: BotPlatform.NET.sln
+install:
+  - nuget restore BotPlatform.NET.sln
+  - nuget install Telegram.Bot -Version 13.4.0.0

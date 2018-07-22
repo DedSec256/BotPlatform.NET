@@ -1,4 +1,4 @@
-﻿namespace BotPlatfrom.Kernel.System.Commands
+﻿namespace BotPlatform.Core.System.Commands
 {
 	public abstract class AttributedCommand<TBot, TMessage> : Command<TBot, TMessage> 
 	{

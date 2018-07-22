@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using BotPlatfrom.Kernel.System.Attributes;
-using BotPlatfrom.Kernel.Tools;
+using BotPlatform.Core.System.Attributes;
+using BotPlatform.Core.Tools;
 
-namespace BotPlatfrom.Kernel.System
+namespace BotPlatform.Core.System
 {
 	/// <summary>
 	/// Менеджер команд

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using System.Text.RegularExpressions;
-using BotPlatfrom.Kernel.System;
-
-namespace BotPlatfrom.Kernel.Communication
+﻿namespace BotPlatform.Core.Communication
 {
 	/*
 	public class User

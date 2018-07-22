@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BotPlatfrom.Kernel.Tools
+namespace BotPlatform.Core.Tools
 {
 	public interface ILogger
 	{
