@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.Contracts;
+using System.Linq;
 using System.Reflection;
 using BotPlatform.Core.System.Commands;
 

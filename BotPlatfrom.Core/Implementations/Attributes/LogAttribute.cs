@@ -13,7 +13,7 @@ namespace BotPlatform.Core.Implementations.Attributes
 		/// <summary>
 		/// </summary>
 		/// <param name="logText">Текст логирования</param>
-		public LogAttribute(string logText = "")
+		public LogAttribute(string logText)
 		{
 			_logText = logText;
 		}

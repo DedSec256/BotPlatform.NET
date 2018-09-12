@@ -10,7 +10,7 @@ namespace BotPlatform.Core.Implementations.Bots
 		/// <summary>
 		/// Прошёл ли бот авторизацию
 		/// </summary>
-		protected bool IsAuthorized = false;
+		public bool IsAuthorized { get; protected set; }
 		/// <summary>
 		/// Определите аторизацию бота тут
 		/// </summary>

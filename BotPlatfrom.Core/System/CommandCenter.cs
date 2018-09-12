@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using BotPlatform.Core.Extensions;
 using BotPlatform.Core.System.Attributes;
 using BotPlatform.Core.Tools;
 
@@ -13,15 +14,15 @@ namespace BotPlatform.Core.System
 	/// </summary>
 	public class CommandCenter
 	{
-		private bool _enableAutoAssemble;
-		private bool _isAssembled;
+		private bool _enableAutoAssembling;
+		private bool _isLoaded;
 		public bool EnableAutoAssemble
 		{
-			get => _enableAutoAssemble;
+			get => _enableAutoAssembling;
 			set
 			{
-				_enableAutoAssemble = value;
-				if(_enableAutoAssemble && !_isAssembled)
+				_enableAutoAssembling = value;
+				if(_enableAutoAssembling && !_isLoaded)
 					ExecuteModules();
 			}
 		}
@@ -67,7 +68,7 @@ namespace BotPlatform.Core.System
 				}
 			});
 			BotConsole.Write("Модули подключены.\n", MessageType.Info);
-			_isAssembled = true;
+			_isLoaded = true;
 		}
 
 		/// <summary>

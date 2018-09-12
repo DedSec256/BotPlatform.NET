@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\Attributes\LogAttribute.cs" />
+    <Compile Include="Communication\INotificationService.cs" />
     <Compile Include="System\Commands\AttributedCommand.cs" />
     <Compile Include="System\Attributes\AttributesFactory.cs" />
     <Compile Include="System\Attributes\DecorateAttribute.cs" />
@@ -60,7 +61,8 @@
     <Compile Include="Communication\User.cs" />
     <Compile Include="Tools\BotConsole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tools\ToolExtensions.cs" />
+    <Compile Include="Extensions\ToolExtensions.cs" />
+    <Compile Include="Users\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interfaces\" />

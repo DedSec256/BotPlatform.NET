@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BotPlatform.Core.Tools
+namespace BotPlatform.Core.Extensions
 {
 	internal static class ToolExtensions
 	{

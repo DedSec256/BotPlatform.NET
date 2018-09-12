@@ -1,29 +1,28 @@
 ﻿using System;
 using BotPlatform.Core.System;
 using BotPlatform.Core.Tools;
-using BotPlatform.Core.Implementations.Bots;
 using Telegram.Bot;
 using Telegram.Bot.Args;
 
-namespace SimpleTelegramBotExample.Implementations
+namespace TelegramBot
 {
-	class SimpleTelegramBot: Bot
+	internal class SimpleTelegramBot: BotPlatform.Core.Implementations.Bots.Bot
 	{
-		public TelegramBotClient Instanse;
+		public TelegramBotClient BotClient;
 		public override bool Authorize()
 		{
 			try
 			{
-				Instanse = new TelegramBotClient("398931706:AAEUZBNEWcpEUK-qUbzB8gXBaNxYXvfQATk");
-				Instanse.SetWebhookAsync("");
+				BotClient = new TelegramBotClient("398931706:AAEUZBNEWcpEUK-qUbzB8gXBaNxYXvfQATk");
+				BotClient.SetWebhookAsync("");
 				return true;
 			}
 			catch { return false; }
 		}
 		protected override void StartBotWork()
 		{ 
-			Instanse.OnUpdate += Bot_OnUpdate;
-			Instanse.StartReceiving();
+			BotClient.OnUpdate += Bot_OnUpdate;
+			BotClient.StartReceiving();
 		}
 		private void Bot_OnUpdate(object sender, UpdateEventArgs e)
 		{
@@ -32,7 +31,7 @@ namespace SimpleTelegramBotExample.Implementations
 				var update = e.Update;
 				var message = update.Message;
 
-				CommandCenter.Instance.Execute(Instanse, message, m => m.Text ?? "");
+				CommandCenter.Instance.Execute(BotClient, message, m => m.Text ?? "");
 			}
 			catch (Exception ex) { BotConsole.Write(ex); }
 		}

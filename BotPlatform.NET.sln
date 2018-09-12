@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{899023F8-E1BC-4865-94DC-54BEFCAE6CEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTelegramBotExample", "SimpleTelegramBot\SimpleTelegramBotExample.csproj", "{9576DAC7-788C-4335-8A22-BEE92618011E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot", "SimpleTelegramBot\TelegramBot.csproj", "{9576DAC7-788C-4335-8A22-BEE92618011E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotPlatform.Tests", "BotPlatform.Tests\BotPlatform.Tests.csproj", "{AD3736EA-E19B-4A87-8A08-3A519E311792}"
 	ProjectSection(ProjectDependencies) = postProject

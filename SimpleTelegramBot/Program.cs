@@ -1,13 +1,12 @@
 ﻿using System;
 using BotPlatform.Core.System;
 using BotPlatform.Core.Tools;
-using SimpleTelegramBotExample.Implementations;
 
-namespace SimpleTelegramBotExample
+namespace TelegramBot
 {
-	class Program
+	internal class Program
 	{
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			BotConsole.Writer = (s, type) => { Console.Write(s); };
 
@@ -17,7 +16,7 @@ namespace SimpleTelegramBotExample
 			var bot = new SimpleTelegramBot();
 			bot.StartWork();
 
-			Console.ReadKey();
+			Console.ReadLine();
 		}
 	}
 }
